@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,12 +94,14 @@
 
         <div class="content">
             <div class="title m-b-md">
-                <img src="https://i.ibb.co/RSPdsnw/boo-king.png" alt="Backpack for Laravel" height="320" width="320">
+                <img src="https://i.ibb.co/RSPdsnw/boo-king.png" alt="Backpack for Laravel" height="250" width="250">
             </div>
 
             <div class="links">
                 <a href="{{ backpack_url() }}">Login</a>
-                <a target="_blank" href="https://backpackforlaravel.com/docs">Register</a>
+                <a target="_blank" href="https://backpackforlaravel.com/docs">Docs</a>
+                <a target="_blank" href="https://github.com/laravel-backpack/crud">GitHub</a>
+                <a target="_blank" href="https://backpackforlaravel.com/contact">Contact</a>
             </div>
             <!--
                 <form>
@@ -149,11 +152,22 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <span class="form-label">Persons</span>
+                                <span class="form-label">Adults</span>
                                 <select class="form-control">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
+                                </select>
+                                <span class="select-arrow"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <span class="form-label">Children</span>
+                                <select class="form-control">
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
                                 </select>
                                 <span class="select-arrow"></span>
                             </div>
