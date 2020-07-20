@@ -152,22 +152,16 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <span class="form-label">Adults</span>
+                                <span class="form-label">Persons</span>
                                 <select class="form-control">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
-                                </select>
-                                <span class="select-arrow"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <span class="form-label">Children</span>
-                                <select class="form-control">
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
                                 </select>
                                 <span class="select-arrow"></span>
                             </div>
