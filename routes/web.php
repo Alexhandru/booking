@@ -14,3 +14,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/login', function(){
+    return view('auth.login');
+});
+
+Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@authenticated']);
+Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\RegisterController@::dispatchNow()']);
