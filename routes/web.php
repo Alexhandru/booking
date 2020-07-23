@@ -22,10 +22,10 @@ Route::get('/home', function () {
 Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
-
+/*
 Route::get('/login', function(){
     return view('auth.login');
 });
-
-Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@authenticated']);
-Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\RegisterController@::dispatchNow()']);
+*/
+//Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@authenticated']);
+//Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\RegisterController@::dispatchNow()']);
