@@ -19,3 +19,18 @@ Route::post('location_fetch', [
   ]);
 
 Route::post('/post-data', 'LocationController@fetch')->name('postData');
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+/*
+Route::get('/login', function(){
+    return view('auth.login');
+});
+*/
+//Route::post('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@authenticated']);
+//Route::post('register', [ 'as' => 'register', 'uses' => 'Auth\RegisterController@::dispatchNow()']);
