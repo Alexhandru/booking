@@ -10,6 +10,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src ="js/ajax.js"></script>
 
     <!-- Styles -->
     <style>
@@ -103,26 +105,14 @@
                 <a target="_blank" href="https://github.com/laravel-backpack/crud">GitHub</a>
                 <a target="_blank" href="https://backpackforlaravel.com/contact">Contact</a>
             </div>
-            <!--
-                <form>
-                    <div class="m-t-lg row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Destination / Hotel name">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Last name">
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                </form>
-                -->
+                
+           
             <div class="m-t-lg">
-                <form>
+                <form method="post" data-route="{{route('postData')}}" id="fetch">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <span class="form-label">Your Destination</span>
-                        <input class="form-control" type="text" placeholder="Enter a destination or hotel name">
+                        <input name='destination' class="form-control" type="text" placeholder="Enter a destination or hotel name">
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -153,7 +143,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <span class="form-label">Persons</span>
-                                <select class="form-control">
+                                <select id="persons" name="persons" class="form-control">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -171,7 +161,53 @@
                         <button class="submit-btn">Check availability</button>
                     </div>
                 </form>
+                <div id="fetchResults" class="m-t-lg">
+                
+                </div>
             </div>
+            <!--
+            <div class="m-t-lg">
+                {{ Form::open(['action' => 'LocationController@fetch', 'method' => 'POST', 'id' => 'fetch']) }}
+                    <div class="form-group">
+                        {{Form::label('destination', 'Your destination', array('class' => 'form-label'))}}
+                        {{Form::text('destination', '', ['class' => 'form-control', 'placeholder' => 'Enter a destination or hotel name'])}}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{Form::label('checkIn', 'Check in', array('class' => 'form-label'))}}
+                                {{Form::date('checkIn', '', ['class' => 'form-control', 'required' => 'required'])}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{Form::label('checkOut', 'Check out', array('class' => 'form-label'))}}
+                                {{Form::date('checkOut', '', ['class' => 'form-control', 'required' => 'required'])}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class ="col-sm-4">
+                            <div class="form-group">
+                                {{Form::label('rooms', 'Rooms')}}
+                                {{Form::selectRange('number', 1, 3)}}
+                                <span class="select-arrow"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                {{Form::label('persons', 'Persons')}}
+                                {{Form::selectRange('number', 1, 8)}}
+                                <span class="select-arrow"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-btn">
+                        {{Form::submit('Check availability', ['class' =>  'submit-btn'])}}
+                    </div>
+                {{ Form::close() }}
+            </div>
+            -->
         </div>
     </div>
 

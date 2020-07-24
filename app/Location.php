@@ -9,4 +9,8 @@ class Location extends Model
     //
     protected $table = 'location';
     protected $primaryKey = 'id';
+
+    public function rooms(){
+        return $this->hasMany('App\Room');
+    }
 }

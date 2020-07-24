@@ -14,3 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('location_fetch', [
+    'uses' => 'LocationController@fetch'
+  ]);
+
+Route::post('/post-data', 'LocationController@fetch')->name('postData');
