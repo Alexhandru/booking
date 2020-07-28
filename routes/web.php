@@ -14,3 +14,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::resource('/rooms/info/{idloc}', 'RoomController');
+//Route::resource('/rooms/review/{id}', 'ReviewController');
+//Route::resource('/rooms', 'RoomController');
+Route::get('/rooms/review/{id}','Controller@showroom');
+Route::get('/rooms/{loc}/{beds}','Controller@showbyloc');
+
+
+
+
+

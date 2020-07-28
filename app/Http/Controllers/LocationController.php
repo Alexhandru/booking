@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Location;
+use App\Review;
+use App\Room;
+
 
 class LocationController extends Controller
 {
+
+  
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+
+    public function index($id)
+    {   //$a = Location::where('idPersona', $id)->get();
+        //$loc = Location::all();
+      //  $reviews = Review::where('RoomFK',$id)->get(); 
+       
+        //return view('rooms.roomrev')->with('reviews',$reviews);
     }
 
     /**
@@ -45,7 +55,7 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+        return Location::find($id);
     }
 
     /**
