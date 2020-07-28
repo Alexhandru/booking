@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use App\Location;
 use App\Review;
 use App\Room;
 
+=======
+use Illuminate\Database\Eloquent\Collection;
+use App\Location;
+use App\Room;
+use DB;
+>>>>>>> 1a7f69d2136e5e949cc0b1ba84ad8654cd5c699d
 
 class LocationController extends Controller
 {
@@ -90,5 +97,23 @@ class LocationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function fetch(Request $request){
+        //return $request->input('destination');
+        //var destination = $request->input('destination');
+        $destination = $request->input('destination');
+        $first = DB::table('location')->join('room', 'location.ID', '=', 'room.ID')
+        ->select('room.*', 'location.*')
+        ->where([['Name', 'like', '%'.$request->input('destination').'%'],
+        ['Beds', '>=', $request->persons],
+        ]);
+        return DB::table('location')->join('room', 'location.ID', '=', 'room.ID')
+        ->select('room.*', 'location.*')
+        ->where('City', 'like', '%'.$request->input('destination').'%')
+        ->union($first)
+        ->distinct()
+        ->get();
+        //return response()->json(['message' => $request->input('destination')], 200);
     }
 }

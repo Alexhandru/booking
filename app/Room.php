@@ -10,6 +10,7 @@ class Room extends Model
     protected $table = 'room';
     protected $primaryKey = 'id';
 
+<<<<<<< HEAD
     public function location() {
         return $this->belongsTo('\App\Location' , 'LocationFK') ;
     }
@@ -29,4 +30,9 @@ class Room extends Model
         return $this->belongsTo('\App\Discount', 'DiscountFK');
     }
    
+=======
+    public function location(){
+        return $this->belongsTo('App\Location');
+    }
+>>>>>>> 1a7f69d2136e5e949cc0b1ba84ad8654cd5c699d
 }
