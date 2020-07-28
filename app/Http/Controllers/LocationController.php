@@ -93,14 +93,16 @@ class LocationController extends Controller
         $first = DB::table('location')->join('room', 'location.ID', '=', 'room.ID')
         ->select('room.*', 'location.*')
         ->where([['Name', 'like', '%'.$request->input('destination').'%'],
-        ['Beds', '>=', $request->persons],
+        ['Beds', '>=', $request->persons]
         ]);
         return DB::table('location')->join('room', 'location.ID', '=', 'room.ID')
         ->select('room.*', 'location.*')
-        ->where('City', 'like', '%'.$request->input('destination').'%')
+        ->where([['City', 'like', '%'.$request->input('destination').'%'],
+        ['Beds', '>=', $request->persons]])
         ->union($first)
         ->distinct()
         ->get();
+        
         //return response()->json(['message' => $request->input('destination')], 200);
     }
 }

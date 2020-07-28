@@ -21,17 +21,22 @@
         color: #636b6f;
         font-family: 'Nunito', sans-serif;
         font-weight: 200;
-        height: 100vh;
         margin: 0;
     }
 
-    .full-height {
-        height: 100vh;
+    .container{
+        max-width: 1280px;
+    }
+
+    .form-content{
+        width: 60%;
+        margin:0 auto;
+        display:block;
     }
 
     .flex-center {
         align-items: center;
-        display: flex;
+        display: block;
         justify-content: center;
     }
 
@@ -52,6 +57,13 @@
     .title {
         font-size: 84px;
         color: #467fd0;
+    }
+
+    .links{
+        height: auto;
+        display: block;
+        text-align: right;
+        width: 100%;
     }
 
     .links>a {
@@ -79,9 +91,11 @@
 </head>
 
 <body>
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-        <div class="top-right links">
+    
+    <div class="container flex-center">
+    @if (Route::has('login'))
+        
+        <div class="links">
             @auth
             <a href="{{ url('/home') }}">My Account</a>
             @else
@@ -93,21 +107,20 @@
             @endauth
         </div>
         @endif
-
         <div class="content">
             <div class="title m-b-md">
                 <img src="https://i.ibb.co/RSPdsnw/boo-king.png" alt="Backpack for Laravel" height="250" width="250">
             </div>
-
+            <!--
             <div class="links">
                 <a href="{{ backpack_url() }}">Login</a>
                 <a target="_blank" href="https://backpackforlaravel.com/docs">Docs</a>
                 <a target="_blank" href="https://github.com/laravel-backpack/crud">GitHub</a>
                 <a target="_blank" href="https://backpackforlaravel.com/contact">Contact</a>
             </div>
-                
+        -->
            
-            <div class="m-t-lg">
+            <div class="m-t-lg form-content">
                 <form method="post" data-route="{{route('postData')}}" id="fetch">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -161,56 +174,12 @@
                         <button class="submit-btn">Check availability</button>
                     </div>
                 </form>
-                <div id="fetchResults" class="m-t-lg">
+                <div id="fetchResults">
                 
-                </div>
+                </div>    
             </div>
-            <!--
-            <div class="m-t-lg">
-                {{ Form::open(['action' => 'LocationController@fetch', 'method' => 'POST', 'id' => 'fetch']) }}
-                    <div class="form-group">
-                        {{Form::label('destination', 'Your destination', array('class' => 'form-label'))}}
-                        {{Form::text('destination', '', ['class' => 'form-control', 'placeholder' => 'Enter a destination or hotel name'])}}
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{Form::label('checkIn', 'Check in', array('class' => 'form-label'))}}
-                                {{Form::date('checkIn', '', ['class' => 'form-control', 'required' => 'required'])}}
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{Form::label('checkOut', 'Check out', array('class' => 'form-label'))}}
-                                {{Form::date('checkOut', '', ['class' => 'form-control', 'required' => 'required'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class ="col-sm-4">
-                            <div class="form-group">
-                                {{Form::label('rooms', 'Rooms')}}
-                                {{Form::selectRange('number', 1, 3)}}
-                                <span class="select-arrow"></span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                {{Form::label('persons', 'Persons')}}
-                                {{Form::selectRange('number', 1, 8)}}
-                                <span class="select-arrow"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-btn">
-                        {{Form::submit('Check availability', ['class' =>  'submit-btn'])}}
-                    </div>
-                {{ Form::close() }}
-            </div>
-            -->
         </div>
     </div>
-
 </body>
 
 </html>
