@@ -1,45 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-use  Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Room;
-use App\Discount;
-use App\Location;
+use Illuminate\Http\Request;
 use App\Review;
+use App\Userroombooking;
+use App\Room;
 use App\Image;
-class RoomController extends Controller
+class ReviewController extends Controller
 {
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($loc)
-    {   
-        
-       
-       // $rooms = Room::orderBy('LocationFK','asc')->get();
-       /*
-       $rooms = Room::where('LocationFK',$loc)
-                ->get();
-                
-       $dt = Carbon::now();
-       $getmonths= DB::table('Discount')
-           ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
-           ->get();
-     
-        return view('rooms.index')->with('rooms',$rooms)
-        
-                                ->with('getmonths',$getmonths);
-                                
-        
-        
-*/
-    }
+    public function index($id)
+    {  
+  /*
 
+     $room=Room::where('ID',$id)->get();
+     
+     $values=   DB::table('Userroombooking')
+                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+                ->join('Review','Userroombooking.reviewFK','=','Review.ID')
+                ->where('Room.ID',$id)
+                //->select('Room.RoomNr','Review.Description')
+                ->get();
+     $images=  DB::table('Image')
+                ->join('Room','Image.RoomFK','=','Room.ID')
+                ->where('Room.ID',$id)
+                ->get();
+    $roomNR = DB::table('Room')         
+                ->where('ID',$id)
+                ->value('RoomNR');
+
+        return view('rooms.roomrev')->with('values',$values)
+                                   ->with('images',$images)
+                                   ->with('roomNR',$roomNR);
+                                    //->with('photos',$photos);
+        */
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -69,7 +64,7 @@ class RoomController extends Controller
      */
     public function show($id)
     {
-
+        //return Location::find($id);
     }
 
     /**
