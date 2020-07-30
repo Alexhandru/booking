@@ -16,7 +16,7 @@
 
         <h3>Room Number: {{$roomNR}}</h3>
         <br>
-        <h3>Reviewes: </h3>
+        <h3>Reviews: </h3>
         <ul>
         @foreach($values as $value)
              <a>{{$value->name}} :</a>

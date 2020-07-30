@@ -76,6 +76,19 @@
         text-transform: uppercase;
     }
 
+    
+
+    .spacings{
+        padding: 30px;
+        display: grid;
+        grid-template-columns: repeat(4, lfr);
+        max-width: 100%;
+        gap: 20px;
+    }
+    .card-columns {
+       display:inline-block;
+}
+
     .m-b-md {
         margin-bottom: 30px;
     }
@@ -173,11 +186,16 @@
                     <div class="form-btn">
                         <button class="submit-btn">Check availability</button>
                     </div>
+                    <br>
                 </form>
-                <div id="fetchResults">
+                <div id="textResults">
+
+                </div>
+                <div class="card-columns" id="fetchResults">
                 
                 </div>    
             </div>
+            
         </div>
     </div>
 </body>
