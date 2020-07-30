@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use App\Location;
-use App\Review;
 use App\Room;
 use DB;
-
-
 
 class LocationController extends Controller
 {
@@ -111,6 +109,7 @@ class LocationController extends Controller
         ->union($first)
         ->distinct()
         ->get();
+        
         
         //return response()->json(['message' => $request->input('destination')], 200);
     }

@@ -60,6 +60,7 @@
     }
 
     .links{
+        padding: 20px;
         height: auto;
         display: block;
         text-align: right;
@@ -112,6 +113,7 @@
             @auth
             <a href="{{ url('/home') }}">My Account</a>
             @else
+            <a href="{{ backpack_url() }}">Admin Login</a>
             <a href="{{ route('login') }}">Login</a>
 
             @if (Route::has('register'))
