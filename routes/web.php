@@ -20,19 +20,22 @@ Route::get('/', function () {
 Route::get('/rooms/review/{id}','Controller@showroom');
 Route::get('/rooms/{loc}/{beds}','Controller@showbyloc');
 
-
-
-
-
 Route::post('location_fetch', [
     'uses' => 'LocationController@fetch'
   ]);
 
 Route::post('/post-data', 'LocationController@fetch')->name('postData');
 
+
 Route::get('/home', function () {
     return view('home');
 });
+/*
+Route::get('bookings', function(){
+    return view('userpage');
+})->name('bookings');
+*/
+Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
 
 Auth::routes();
 
