@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src ="js/ajax.js"></script>
-
+  
     <!-- Styles -->
     <style>
     html,

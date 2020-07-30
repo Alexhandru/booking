@@ -28,12 +28,12 @@ class Controller extends BaseController
        // $rooms = Room::orderBy('LocationFK','asc')->get();
         $rooms = Room::where([['LocationFK',$loc],['Beds',$beds]])
                 ->get();
-               
+              
        $dt = Carbon::now();
        $getmonths= DB::table('Discount')
            ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
            ->get();
-     
+        
         return view('rooms.index')->with('rooms',$rooms)
         
                                 ->with('getmonths',$getmonths);
@@ -63,10 +63,28 @@ class Controller extends BaseController
     $roomNR = DB::table('Room')         
                 ->where('ID',$id)
                 ->value('RoomNR');
-
+    $rating=DB::table('Userroombooking')
+    ->join('Review','Userroombooking.reviewFK','=','Review.ID')
+    ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+    ->where('Room.ID',$id)
+    ->avg('Review.Rating');
+    //return $rating;
+    $dates=   DB::table('Userroombooking')
+                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+                ->where('Room.ID',$id)
+                //->select('Room.RoomNr','Review.Description')
+                ->get();
+     $nrimages=  DB::table('Image')
+                ->join('Room','Image.RoomFK','=','Room.ID')
+                ->where('Room.ID',$id)
+                ->count();
+  
         return view('rooms.roomrev')->with('values',$values)
                                    ->with('images',$images)
-                                   ->with('roomNR',$roomNR);
+                                   ->with('roomNR',$roomNR)
+                                   ->with('rating',$rating)
+                                   ->with('dates',$dates)
+                                   ->with('nrimages',$nrimages);
                                     //->with('photos',$photos);
         
     }
