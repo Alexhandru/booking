@@ -29,6 +29,7 @@
         padding: 1px 0;
     }
 
+<<<<<<< HEAD
 
 /* Hide the images by default */
 .mySlide {
@@ -129,6 +130,12 @@
          
         <li class="list-group-item"> <h5>Reviewes:</h5> </li>
         
+=======
+        <h3>Room Number: {{$roomNR}}</h3>
+        <br>
+        <h3>Reviews: </h3>
+        <ul>
+>>>>>>> e5eb8f33e5c5b7a8cba55ed65f6c011d4e558b31
         @foreach($values as $value)
         <li class="list-group-item-info"> {{$value->name}} : {{$value->Description}}
         <br>

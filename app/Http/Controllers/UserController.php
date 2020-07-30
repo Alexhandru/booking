@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -81,4 +83,19 @@ class UserController extends Controller
     {
         //
     }
+
+    public function showUserBookings(){
+        $currentUser = Auth::user();
+
+        $currentUserID = $currentUser->id;
+
+        $info = DB::table('Userroombooking')
+                ->join('Room', 'Userroombooking.RoomFK', '=','Room.ID')
+                ->join('Location', 'Room.LocationFK','=','Location.ID')
+                ->where('UserFK', $currentUserID)
+                ->get();
+
+        return view('userpage')->with('info', $info);
+    }
+
 }

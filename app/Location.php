@@ -13,7 +13,8 @@ class Location extends Model
      //   $this->has    Many('\App\Room');
     //}
 
-    public function rooms(){
-        return $this->hasMany('App\Room');
+  
+    public function rooms() {
+       $this->hasMany('\App\Room');
     }
 }

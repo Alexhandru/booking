@@ -28,5 +28,8 @@ class Room extends Model
     public function discounts(){
         return $this->belongsTo('\App\Discount', 'DiscountFK');
     }
-   
+   /*
+    public function location(){
+        return $this->belongsTo('App\Location');
+    }*/
 }
