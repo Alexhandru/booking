@@ -2,6 +2,7 @@ $(function(){
     $('#fetch').submit(function(e){
         var route = $('#fetch').data('route');
         var fetch = $(this);
+        var personss=$('#persons')
         $.ajax({
             type: 'POST',
             url: route,
@@ -27,7 +28,7 @@ $(function(){
                             '<li class="list-group-item">' + value.Category +'</li>' +
                           '</ul>' +
                           '<div class="card-body">' +
-                            '<a href="/rooms/' + value.ID + '/' + value.Beds + '" class="card-link">Go to rooms</a>' +
+                            '<a href="/rooms/' + value.ID + '/' + personss.val() + '" class="card-link">Go to rooms</a>' +
                           '</div>' +
                       '</div>' +
                     '<br>')

@@ -21,12 +21,30 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    public function showbyloc($loc,$beds)
+    public function showbyloc($loc,$beds,$date,$date2)
     {   
-        
+
+        $carbon = new Carbon($date);
+        $carbon->format('Y-m-d');
+  
+        $carbon2 = new Carbon($date2);
+        $carbon2->format('Y-m-d');
+      
+
+        $from = date('2018-10-13');
+        $to = date('2018-10-14');
+        $check= DB::table('Userroombooking')
+        ->whereRaw('"'.$date.'" not between `BookingStart` and `BookingEnd`')
+        ->whereRaw('"'.$date2.'" not between `BookingStart` and `BookingEnd`')
+        ->whereRaw('`BookingStart` not between "'.$date.'" and "'.$date2.'"')
+        ->whereRaw('`BookingEnd` not between "'.$date.'" and "'.$date2.'"')
+        ->get();
+return $check;
+
+        $date = Carbon::createFromFormat('Y-m-d', $date)->format('Y/m/d');
        
        // $rooms = Room::orderBy('LocationFK','asc')->get();
-        $rooms = Room::where([['LocationFK',$loc],['Beds',$beds]])
+        $rooms = Room::where([['LocationFK',$loc],['Beds','>',$beds]])
                 ->get();
               
        $dt = Carbon::now();

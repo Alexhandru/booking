@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::get('/rooms/review/{id}','Controller@showroom');
 Route::get('/rooms/{loc}/{beds}','Controller@showbyloc');
 
+
 Route::post('location_fetch', [
     'uses' => 'LocationController@fetch'
   ]);
