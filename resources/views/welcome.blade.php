@@ -146,13 +146,13 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <span class="form-label">Check In</span>
-                                <input class="form-control" type="date" required>
+                                <input id="checkIn" class="form-control" type="date" required>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <span class="form-label">Check out</span>
-                                <input class="form-control" type="date" required>
+                                <input id="checkOut" class="form-control" type="date" required>
                             </div>
                         </div>
                     </div>
