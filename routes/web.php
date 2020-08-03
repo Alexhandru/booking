@@ -18,7 +18,7 @@ Route::get('/', function () {
 //Route::resource('/rooms/review/{id}', 'ReviewController');
 //Route::resource('/rooms', 'RoomController');
 Route::get('/rooms/review/{id}','Controller@showroom');
-Route::get('/rooms/{loc}/{beds}','Controller@showbyloc');
+Route::get('/rooms/{loc}/{beds}/{date}/{date2}','Controller@showbyloc');
 
 
 Route::post('location_fetch', [
