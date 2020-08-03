@@ -8,9 +8,6 @@ use App\Location;
 use App\Review;
 use App\Room;
 
-
-
-
 use DB;
 
 class LocationController extends Controller
