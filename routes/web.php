@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
-});
+})->middleware('auth');
 
 
 /////  ROOMS ROUTES  /////
@@ -61,5 +61,11 @@ Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
 
 Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
 
-
+/////  AUTHENTICATION ROUTES  /////
 Auth::routes();
+
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/register/admin','Auth\RegisterController@createAdmin');
