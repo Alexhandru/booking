@@ -12,7 +12,8 @@
       display:inline-block;
       background-color:rgb(105, 189, 210, 0.7);"
         >
-    <h4 class="card-title">Location Name: {{$room->location['Name']}}</h4>    
+        
+        <h4 class="card-title">Location Name:{{$room->location['Name']}}</h4>    
     <div class="card-body">
         <img class="card-img-top" src="{{ URL::asset($room->Picture) }}" alt="Card image" height="250" width="250">
         
