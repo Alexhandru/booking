@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('home');
-});
+})->middleware('auth');
 
 
 /////  ROOMS ROUTES  /////
@@ -26,7 +26,7 @@ Route::get('/home', function () {
 //Route::resource('/rooms/review/{id}', 'ReviewController');
 //Route::resource('/rooms', 'RoomController');
 Route::get('/rooms/review/{id}','Controller@showroom');
-Route::get('/rooms/{loc}/{beds}','Controller@showbyloc');
+Route::get('/rooms/{loc}/{beds}/{date}/{date2}','Controller@showbyloc');
 
 
 /////  LOCATION ROUTES  /////
@@ -62,5 +62,11 @@ Route::get('/dashboard/location/{id}/edit', 'LocationController@edit');
 
 Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
 
-
+/////  AUTHENTICATION ROUTES  /////
 Auth::routes();
+
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::post('/register/admin','Auth\RegisterController@createAdmin');

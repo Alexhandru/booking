@@ -31,29 +31,51 @@ class Controller extends BaseController
         $carbon2->format('Y-m-d');
       
 
-        $from = date('2018-10-13');
-        $to = date('2018-10-14');
-        $check= DB::table('Userroombooking')
-        ->whereRaw('"'.$date.'" not between `BookingStart` and `BookingEnd`')
-        ->whereRaw('"'.$date2.'" not between `BookingStart` and `BookingEnd`')
-        ->whereRaw('`BookingStart` not between "'.$date.'" and "'.$date2.'"')
-        ->whereRaw('`BookingEnd` not between "'.$date.'" and "'.$date2.'"')
-        ->get();
-return $check;
 
-        $date = Carbon::createFromFormat('Y-m-d', $date)->format('Y/m/d');
+$bad = DB::table('Room')
+
+->join('Userroombooking','Room.ID','=','Userroombooking.RoomFK')
+
+
+->whereRaw('"'.$date.'"  between `BookingStart` and `BookingEnd`')
+->orWhereRaw('"'.$date2.'"  between `BookingStart` and `BookingEnd`')
+->orWhereRaw('`BookingStart`  between "'.$date.'" and "'.$date2.'"')
+->orWhereRaw('`BookingEnd`  between "'.$date.'" and "'.$date2.'"')
+
+->get();
+
+$rooms2=Room::orderBy('LocationFK','asc')->get();
+$rooms = collect();
+foreach($rooms2 as $room){
+    $a=0;
+    foreach($bad as $b){
+        if($room->ID == $b->RoomFK)
+        {
+            $a=1;
+        }
+      
        
-       // $rooms = Room::orderBy('LocationFK','asc')->get();
-        $rooms = Room::where([['LocationFK',$loc],['Beds','>',$beds]])
-                ->get();
-              
+    }
+    if($room->LocationFK != $loc){
+        $a=1;
+      
+    }
+    if($room->Beds < $beds){
+       
+        $a=1;
+    }
+    if($a==0){
+    $rooms->push($room);
+    }
+}
+
        $dt = Carbon::now();
        $getmonths= DB::table('Discount')
            ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
            ->get();
         
         return view('rooms.index')->with('rooms',$rooms)
-        
+                                
                                 ->with('getmonths',$getmonths);
                                 
         
