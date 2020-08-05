@@ -55,7 +55,8 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
 */
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
-
+Route::get('/dashboard/location', 'AdminPageController@ViewLocations');
+Route::get('/dashboard/location/{id}/edit', 'LocationController@edit');
 
 /////  USER PAGE ROUTES  /////
 
