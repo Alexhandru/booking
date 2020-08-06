@@ -14,13 +14,44 @@ use App\Discount;
 use App\Location;
 use App\Review;
 use App\Image;
-
+use App\Userroombooking;
+use App\Company;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
     use ValidatesRequests;
 
+
+    public function insert($id,$date,$date2,$iduser){
+        $booking=new UserroomBooking;
+        $booking->BookingStart=$date;
+        $booking->BookingEnd=$date2;
+        $booking->UserFK=$iduser;
+        $booking->RoomFK=$id;
+        // $booking->save();
+    
+    
+        $room=Room::where('ID',$id)->first();
+        $user=User::where('ID',$iduser)->first();
+        $locationID=Room::where('ID',$id)
+        ->first()
+        ->value('LocationFK');
+        $location=Location::where('ID',$locationID)->first();
+       // return $location;
+       $companyID=Location::where('ID',$locationID)->first()->value('CompanyFK');
+        //$CompanyID=Location::where('CompanyFK',$locationID)->first()->value('CompanyFK');
+        //return $CompanyID;
+        $company=Company::where('ID',$companyID)->first();
+        return view('rooms.reservedroom')->with('user',$user)
+        ->with('location',$location)
+        ->with('company',$company)
+        ->with('date',$date)
+        ->with('date2',$date2)
+        ->with('room',$room);
+    }
     public function showbyloc($loc,$beds,$date,$date2)
     {   
 
@@ -30,8 +61,7 @@ class Controller extends BaseController
         $carbon2 = new Carbon($date2);
         $carbon2->format('Y-m-d');
       
-
-
+        
 $bad = DB::table('Room')
 
 ->join('Userroombooking','Room.ID','=','Userroombooking.RoomFK')
@@ -75,7 +105,8 @@ foreach($rooms2 as $room){
            ->get();
         
         return view('rooms.index')->with('rooms',$rooms)
-                                
+                                ->with('date',$date)
+                                ->with('date2',$date2)
                                 ->with('getmonths',$getmonths);
                                 
         

@@ -33,8 +33,13 @@
                 <h3> Room price: {{$room->Price}}  </h3> 
             @endif
         @endforeach
+        <php
+        $nr={{$room->ID}};
+        ?>
         <a href="/rooms/review/{{$room->ID}}" class="btn btn-primary">More about</a>
-        <a href="" class="btn btn-success" style="float: right;">Reserve</a>
+        @if (!Auth::guest())
+        <a href="{{action('Controller@insert',['id'=>$room->ID,'date'=>$date, 'date2'=>$date2, 'iduser'=>Auth::user()->id])}}" class="btn btn-success" style="float: right;">Reserve</a>
+        @endif  
         </div>
     </div>
     @endforeach    

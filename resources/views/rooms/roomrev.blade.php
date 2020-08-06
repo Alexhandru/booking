@@ -127,7 +127,7 @@
         
         <li class="list-group-item"><h5>Room Rating: {{$rating}} </h5></li>
          
-        <li class="list-group-item"> <h5>Reviewes:</h5> </li>
+        
         
         <h3>Room Number: {{$roomNR}}</h3>
         <br>
