@@ -110,15 +110,23 @@
     @if (Route::has('login'))
         
         <div class="links">
-            @auth
-            <a href="{{ url('/home') }}">My Account</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
+            @auth('web')
+                <a href="{{ url('/home') }}">My Account</a>
             @endauth
+
+            @auth('admin')
+                <a href="{{ url('/dashboard/main') }}">Dashboard</a>
+            @endauth
+
+            @guest('admin')
+                @guest('web')
+                    <a href="{{ route('login') }}">Login</a>
+
+                    @if (Route::has('register'))
+                    <a href="{{ route('register') }}">Register</a>
+                    @endif
+                @endguest
+            @endguest
         </div>
         @endif
         <div class="content">
