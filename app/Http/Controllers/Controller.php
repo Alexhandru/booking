@@ -32,16 +32,18 @@ class Controller extends BaseController
         $booking->UserFK=$iduser;
         $booking->RoomFK=$id;
         // $booking->save();
-    
-    
+ 
         $room=Room::where('ID',$id)->first();
         $user=User::where('ID',$iduser)->first();
         $locationID=Room::where('ID',$id)
-        ->first()
+      
         ->value('LocationFK');
+        
         $location=Location::where('ID',$locationID)->first();
        // return $location;
-       $companyID=Location::where('ID',$locationID)->first()->value('CompanyFK');
+       $companyID=Location::where('ID',$locationID)->value('CompanyFK');
+      // return $companyID;
+    
         //$CompanyID=Location::where('CompanyFK',$locationID)->first()->value('CompanyFK');
         //return $CompanyID;
         $company=Company::where('ID',$companyID)->first();
