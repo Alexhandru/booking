@@ -31,7 +31,7 @@ class Controller extends BaseController
         $booking->BookingEnd=$date2;
         $booking->UserFK=$iduser;
         $booking->RoomFK=$id;
-        // $booking->save();
+         $booking->save();
  
         $room=Room::where('ID',$id)->first();
         $user=User::where('ID',$iduser)->first();
