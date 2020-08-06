@@ -35,7 +35,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('locations.add');
     }
 
     /**
@@ -46,7 +46,29 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'Name' => 'required',
+            'Address' => 'required',
+            'Category' => 'required',
+            'City' => 'required',
+            'CompanyFK' => 'required',
+            'URL' => 'required'
+        ]);
+        
+
+        $location = new Location;
+
+        //return $location;
+        $location->Name = $request->input('Name');
+        $location->Adress = $request->input('Address');
+        $location->Category = $request->input('Category');
+        $location->City = $request->input('City');
+        $location->CompanyFK = $request->input('CompanyFK');
+        $location->URL = $request->input('URL');
+
+        $location->save();
+
+        return redirect('/dashboard/location')->with('success', 'Location Added');
     }
 
     /**
@@ -81,7 +103,30 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->validate($request,[
+            'Name' => 'required',
+            'Address' => 'required',
+            'Category' => 'required',
+            'City' => 'required',
+            'CompanyFK' => 'required',
+            'URL' => 'required'
+        ]);
+        
+
+        $location = Location::find($id);
+
+        //return $location;
+        $location->Name = $request->input('Name');
+        $location->Adress = $request->input('Address');
+        $location->Category = $request->input('Category');
+        $location->City = $request->input('City');
+        $location->CompanyFK = $request->input('CompanyFK');
+        $location->URL = $request->input('URL');
+
+        $location->save();
+
+        return redirect('/dashboard/location')->with('success', 'Location Updated');
     }
 
     /**
