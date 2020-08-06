@@ -27,7 +27,8 @@ Route::get('/home', function () {
 //Route::resource('/rooms', 'RoomController');
 Route::get('/rooms/review/{id}','Controller@showroom');
 Route::get('/rooms/{loc}/{beds}/{date}/{date2}','Controller@showbyloc');
-
+//Route::get('/rooms/hrllo','Controller@insert');
+Route::get('/reserved/{id}/{date}/{date2}/{iduser}','Controller@insert');
 
 /////  LOCATION ROUTES  /////
 
