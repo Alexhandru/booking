@@ -89,13 +89,21 @@ class UserController extends Controller
 
         $currentUserID = $currentUser->id;
 
-        $info = DB::table('Userroombooking')
-                ->join('Room', 'Userroombooking.RoomFK', '=','Room.ID')
+        $info = DB::table('Userroombooking2')
+                ->join('Room', 'Userroombooking2.RoomFK', '=','Room.ID')
                 ->join('Location', 'Room.LocationFK','=','Location.ID')
                 ->where('UserFK', $currentUserID)
+                ->select('Userroombooking2.ID','BookingStart', 'BookingEnd', 'City', 'Name')
                 ->get();
 
         return view('userpage')->with('info', $info);
+    }
+
+    public function deleteBooking($id){
+
+        $sql = DB::delete('DELETE FROM userroombooking2 WHERE ID=?', [$id]);
+
+        return redirect('bookings')->with('success', 'Booking deleted');
     }
 
 }

@@ -64,6 +64,7 @@ Route::post('/add-Location', 'LocationController@store');
 
 /////  USER PAGE ROUTES  /////
 
+Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');
 Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
 
 /////  AUTHENTICATION ROUTES  /////
