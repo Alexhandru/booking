@@ -1,23 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
+<style>
+    .col-md-8{
+        background: white;
+        margin-top:5%;
+        padding: 50px;
+        height: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .container {
+        height: 100%;
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    .justify-content-center{
+        height: 100%;
+
+    }
+
+    .ribbon {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background-image: url('{{ asset('assets/backG.jpg')}}');
+        background-size: cover;
+    }
+</style>
+<div class="ribbon">
+    
+</div>
 <div class="container">
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <table class="table">
                 <thead class="thead-dark">
                   <tr>
+                    <th></th>
                     <th scope="col">From</th>
                     <th scope="col">To</th>
                     <th scope="col">City</th>
                     <th scope="col">Location</th>
+                    <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
 
                     @foreach($info as $item)
                         <tr>
-
+                            <td></td>
                             <td> {{$item->BookingStart}} </td>
                             <td> {{$item->BookingEnd}} </td>
                             <td> {{$item->City}} </td>

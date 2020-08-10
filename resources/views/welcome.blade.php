@@ -8,7 +8,9 @@
     <title>Backpack for Laravel</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <!--<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src ="js/ajax.js"></script>
@@ -19,7 +21,7 @@
     body {
         background-color: #fff;
         color: #636b6f;
-        font-family: 'Nunito', sans-serif;
+        font-family: 'Quicksand', sans-serif;
         font-weight: 200;
         margin: 0;
     }
@@ -111,7 +113,7 @@
         
         <div class="links">
             @auth('web')
-                <a href="{{ url('/home') }}">My Account</a>
+                <a href="{{ url('/bookings') }}">My Account</a>
             @endauth
 
             @auth('admin')

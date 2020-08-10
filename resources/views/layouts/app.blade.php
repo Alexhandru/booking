@@ -23,9 +23,21 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Javascript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .wrapper{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }    
+
+        .wrapper2 {
+            height: 80%
+        }
+
+    </style>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="wrapper">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 
@@ -73,7 +85,6 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{route('bookings')}}">My Bookings</a>
                                     
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -112,7 +123,8 @@
         </nav>
         @include('inc.messages')
         <!--<main class="py-4">-->
-        <div>
+
+        <div class='wrapper2'>
             @yield('content')
         </div>
             <!--</main>-->
