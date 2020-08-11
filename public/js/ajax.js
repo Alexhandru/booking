@@ -17,6 +17,24 @@ $(function(){
                 dayCO = checkOut.getDate();
                 monthCO = checkOut.getMonth() + 1;
                 yearCO = checkOut.getFullYear();
+              //  console.log([dayCI, monthCI, yearCI].join('/'));
+                var d = new Date();
+                var strDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+                var current =  Date.parse(strDate);
+               // var Datee=new Date($strDate.val());
+                if(checkIn<current){
+                $('#fetchResults').html('');
+                $('#textResults').html('');
+                $('#textResults').append("Please select a current date");
+              }
+                else if(checkIn>checkOut){
+                  $('#fetchResults').html('');
+                  $('#textResults').html('');
+                  $('#textResults').append('Please select a valid date' );
+                } 
+             
+              else{
+
 
                 console.log([dayCI, monthCI, yearCI].join('/'));
                 $('#fetchResults').html('');
@@ -45,7 +63,7 @@ $(function(){
                     '<br>')
                 });
             }
-            
+          }
         });
         
         e.preventDefault();

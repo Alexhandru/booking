@@ -7,7 +7,7 @@
 
 @if(count($rooms) >0)
     @foreach($rooms as $room)
-    
+  
     <div class="card" style="width:400px;
       display:inline-block;
       background-color:rgb(105, 189, 210, 0.7);"
@@ -17,10 +17,17 @@
     <div class="card-body">
         <img class="card-img-top" src="{{ URL::asset($room->Picture) }}" alt="Card image" height="250" width="250">
         
-        
+
+      <!--  <a href="/rooms/review/{{$room->ID}}#dates">dates</a>
+    
+        <a href="/rooms/review/{{$room->ID}}#reviews">reviews</a>
+    -->
+
+
         <h3> Room number: <a>{{$room->RoomNr}} </a> </h3>
-        <h3> City: {{$room->location['City']}}</h3>
        
+        <h3> City: {{$room->location['City']}}</h3>
+        <h3> Room rating:  <a href="/rooms/review/{{$room->ID}}#reviews">{{$rating[$index]}}</a> </h3>
            <h3> Number beds: {{$room->Beds}} </h3> 
           
           <h3> Category: {{$room->location['Category']}}</h3>
@@ -41,7 +48,8 @@
         <a href="{{action('Controller@insert',['id'=>$room->ID,'date'=>$date, 'date2'=>$date2, 'iduser'=>Auth::user()->id])}}" class="btn btn-success" style="float: right;">Reserve</a>
         @endif  
         </div>
-    </div>
+        </div>
+        <php {{ ++$index }} ?>
     @endforeach    
 @else
 
