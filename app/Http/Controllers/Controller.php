@@ -75,7 +75,7 @@ $bad = DB::table('Room')
 ->orWhereRaw('`BookingEnd`  between "'.$date.'" and "'.$date2.'"')
 
 ->get();
-
+$rating=collect();
 $rooms2=Room::orderBy('LocationFK','asc')->get();
 $rooms = collect();
 foreach($rooms2 as $room){
@@ -97,10 +97,16 @@ foreach($rooms2 as $room){
         $a=1;
     }
     if($a==0){
+        $rt=DB::table('Userroombooking')
+        ->join('Review','Userroombooking.reviewFK','=','Review.ID')
+        ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+        ->where('Room.ID',$room->ID)
+        ->avg('Review.Rating');
+    $rating->push($rt);
     $rooms->push($room);
     }
 }
-
+    $index=0;
        $dt = Carbon::now();
        $getmonths= DB::table('Discount')
            ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
@@ -109,9 +115,9 @@ foreach($rooms2 as $room){
         return view('rooms.index')->with('rooms',$rooms)
                                 ->with('date',$date)
                                 ->with('date2',$date2)
-                                ->with('getmonths',$getmonths);
-                                
-        
+                                ->with('getmonths',$getmonths)
+                                ->with('rating',$rating)
+                                ->with('index',$index);
         
 
     }
@@ -151,13 +157,20 @@ foreach($rooms2 as $room){
                 ->join('Room','Image.RoomFK','=','Room.ID')
                 ->where('Room.ID',$id)
                 ->count();
+                $dt = Carbon::now();
+                $getmonths= DB::table('Discount')
+                    ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
+                    ->where('ID',)
+                    ->get();
   
         return view('rooms.roomrev')->with('values',$values)
                                    ->with('images',$images)
                                    ->with('roomNR',$roomNR)
                                    ->with('rating',$rating)
                                    ->with('dates',$dates)
+                                   ->with('getmonths',$getmonths)
                                    ->with('nrimages',$nrimages);
+
                                     //->with('photos',$photos);
         
     }
