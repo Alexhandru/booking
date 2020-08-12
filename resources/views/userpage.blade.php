@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
 <style>
-    .col-md-8{
+    .continutul{
         background: white;
         margin-top:5%;
         padding: 50px;
@@ -28,6 +28,7 @@
         position: absolute;
         background-image: url('{{ asset('assets/backG.jpg')}}');
         background-size: cover;
+        z-index:-1;
     }
 
 </style>
@@ -37,7 +38,7 @@
 <div class="container">
     
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="continutul">
             <table class="table">
                 <thead class="thead-dark">
                   <tr>

@@ -10,7 +10,7 @@ class AdminPageController extends Controller
 {
     //
     public function ViewDashboard(){
-        return view('layouts.admdboard');
+        return view('admin.adminwelcome');
     }
     
     public function ViewUsers(){
