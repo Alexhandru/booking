@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('home');
+    return view('welcome');
 })->middleware('auth');
 
 
@@ -66,6 +66,8 @@ Route::post('/add-Location', 'LocationController@store');
 
 Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');
 Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
+Route::get('/bookings/{id}/review', 'UserController@showReviewEdit');
+Route::post('/bookings/{id}/review', 'UserController@writeReview');
 
 /////  AUTHENTICATION ROUTES  /////
 Auth::routes();
