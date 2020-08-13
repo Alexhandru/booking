@@ -4,10 +4,31 @@
 .checked {
   color: orange;
 }
-
+.wrapper{
+  position:static;
+    height: 100%;
+    width: 100%;
+  
+}
+.backGG{
+  opacity:0.9;
+  height: 100%;
+        width: 100%;
+       
+       background :rgb(105, 189, 210, 0.7);
+        position: absolute;
+        background-image: url('{{ asset('assets/backG.jpg')}}');
+       
+        z-index: -1;
+        background-size: cover;
+  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
     .galerybox {
         position: relative; 
         background-color: lightblue;
+        background :rgb(105, 189, 210, 0.7);  
        // width: 600px;
         border: 3px solid darkgray;
         padding: 10px;
@@ -90,10 +111,24 @@
 .thumbnail-image:hover {
   opacity: 1;
 }
+.list-group-item-info{
+  background-color:rgb(105, 189, 210, 0.7);
+}
+.whiteTextOverride
+{
+ color: white !important;
+}
+.table-info{
+  background-color:rgb(105, 189, 210, 0.7);
+}
+.blackTextOverride
+{
+ color: black !important;
+}
 </style>
- 
+ <div class="backGG"></div>
 <div class="page-header" style="text-align: center;
- // background-color:	rgb(25, 121, 169);">
+ background-color:rgb(105, 189, 210, 0.7);">
      <h1>Reviews: </h1>
 </div>
 
@@ -125,35 +160,36 @@
             </div>
 
         </div>
+        
       <ul class="list-group">
       @if( $rating == NULL)
-      <li class="list-group-item"><h5>Room Rating: Currently  no ratings available</h5></li>
+      <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: Currently  no ratings available</h5></li>
       @else
-        <li class="list-group-item"><h5>Room Rating: {{$rating}} </h5></li>
+        <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: {{$rating}} </h5></li>
       @endif
 
         <div id="reviews">
-        <h3>Reviews: </h3>
+        <h3 class='whiteTextOverride'>Reviews: </h3>
 
     
         @foreach($values as $value)
      
-        <li class="list-group-item-info"> {{$value->name}} : {{$value->Description}}
+        <li class="list-group-item-info"> <a class='blackTextOverride'>{{$value->name}} : {{$value->Description}}</a>
         <br>
        
-        <a>Rating: {{$value->Rating}} </a>
+        <a class='blackTextOverride'>Rating: {{$value->Rating}} </a>
         </li>
    
         @endforeach
         </ul>
         </div>
         <div id="dates">
-        <h1>reserved dates: </h1>
+        <h3 class="whiteTextOverride">reserved dates: </h3>
         <table class="table">
          <thead>
             <tr>
-         <th scope="col">From: </th>
-         <th scope="col">To: </th>
+         <th class='whiteTextOverride' scope="col">From: </th>
+         <th class ='whiteTextOverride'scope="col">To: </th>
          </thead>
          <tbody>
         @foreach($dates as $date)

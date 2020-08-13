@@ -15,6 +15,7 @@ use App\Location;
 use App\Review;
 use App\Image;
 use App\Userroombooking;
+use App\Userroombooking2;
 use App\Company;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -26,15 +27,19 @@ class Controller extends BaseController
 
 
     public function insert($id,$date,$date2,$iduser){
-        $booking=new UserroomBooking;
+       // $booking=new UserroomBooking;
+       $booking=new UserroomBooking2;
         $booking->BookingStart=$date;
         $booking->BookingEnd=$date2;
         $booking->UserFK=$iduser;
         $booking->RoomFK=$id;
          $booking->save();
- 
+      
         $room=Room::where('ID',$id)->first();
         $user=User::where('ID',$iduser)->first();
+        $userMail=User::where('ID',$iduser)->value('email');
+        $username=User::where('ID',$iduser)->value('name');
+        
         $locationID=Room::where('ID',$id)
       
         ->value('LocationFK');
@@ -47,12 +52,19 @@ class Controller extends BaseController
         //$CompanyID=Location::where('CompanyFK',$locationID)->first()->value('CompanyFK');
         //return $CompanyID;
         $company=Company::where('ID',$companyID)->first();
+         
+        $destination=$userMail;
+        $mailmessage="This is a confirmation email. You have successfully reserved our room ".$username. " ! Your reservation is valid from: ".$date." to: ".$date2." .";//.$data['Password'];
+        $headers = "aistenes@yahoo.com";
+        mail($destination, "room reserved", $mailmessage,$headers);
+        
         return view('rooms.reservedroom')->with('user',$user)
         ->with('location',$location)
         ->with('company',$company)
         ->with('date',$date)
         ->with('date2',$date2)
-        ->with('room',$room);
+        ->with('room',$room)
+        ->with('usermail',$userMail);
     }
     public function showbyloc($loc,$beds,$date,$date2)
     {   
@@ -66,7 +78,7 @@ class Controller extends BaseController
         
 $bad = DB::table('Room')
 
-->join('Userroombooking','Room.ID','=','Userroombooking.RoomFK')
+->join('Userroombooking2','Room.ID','=','Userroombooking2.RoomFK')
 
 
 ->whereRaw('"'.$date.'"  between `BookingStart` and `BookingEnd`')
@@ -97,9 +109,9 @@ foreach($rooms2 as $room){
         $a=1;
     }
     if($a==0){
-        $rt=DB::table('Userroombooking')
-        ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-        ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+        $rt=DB::table('Userroombooking2')
+        ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+        ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
         ->where('Room.ID',$room->ID)
         ->avg('Review.Rating');
     $rating->push($rt);
@@ -127,10 +139,10 @@ foreach($rooms2 as $room){
 
      $room=Room::where('ID',$id)->get();
      
-     $values=   DB::table('Userroombooking')
-                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
-                ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-                ->join('Users','Userroombooking.UserFK','=','Users.id')
+     $values=   DB::table('Userroombooking2')
+                ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
+                ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+                ->join('Users','Userroombooking2.UserFK','=','Users.id')
                 ->where('Room.ID',$id)
                 //->select('Room.RoomNr','Review.Description')
                 ->get();
@@ -142,14 +154,14 @@ foreach($rooms2 as $room){
     $roomNR = DB::table('Room')         
                 ->where('ID',$id)
                 ->value('RoomNR');
-    $rating=DB::table('Userroombooking')
-    ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-    ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+    $rating=DB::table('Userroombooking2')
+    ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+    ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
     ->where('Room.ID',$id)
     ->avg('Review.Rating');
     //return $rating;
-    $dates=   DB::table('Userroombooking')
-                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+    $dates=   DB::table('Userroombooking2')
+                ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
                 ->where('Room.ID',$id)
                 //->select('Room.RoomNr','Review.Description')
                 ->get();
