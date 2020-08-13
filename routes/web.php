@@ -55,7 +55,6 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
     Note: vezi User 'bookings' route
 */
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
-Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
 
     /////  LOCATION  /////
 Route::get('/dashboard/location', 'AdminPageController@ViewLocations');
@@ -69,7 +68,8 @@ Route::get('dashboard/company/add', 'CompanyController@create');
 Route::post('/add-Company', 'CompanyController@store');
 Route::get('/dashboard/company/{id}/edit', 'CompanyController@edit');
 Route::post('/{id}/update-Company', 'CompanyController@update');
-
+    /////  USERS  /////
+Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
 /////  USER PAGE ROUTES  /////
 
 Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');

@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Users</li></a>
+                    <a href="/dashboard/users" class="nav-link">Users</li></a>
                 </li>
 
                 <li class="nav-item">
