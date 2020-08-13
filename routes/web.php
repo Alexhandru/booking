@@ -70,6 +70,8 @@ Route::get('/dashboard/company/{id}/edit', 'CompanyController@edit');
 Route::post('/{id}/update-Company', 'CompanyController@update');
     /////  USERS  /////
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
+    /////  ROOMS  /////
+Route::get('/dashboard/rooms', 'AdminPageController@ViewRooms');    
 /////  USER PAGE ROUTES  /////
 
 Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');

@@ -27,4 +27,9 @@ class AdminPageController extends Controller
         $company = DB::table('company')->get();
         return view('admin.company')->with('company', $company);
     }
+    public function ViewRooms(){
+        $rooms = DB::table('room')
+        ->paginate(20);
+        return view('admin.roomview')->with('rooms',$rooms);
+    }
 }

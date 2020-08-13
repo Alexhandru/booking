@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Rooms</li></a>
+                    <a href="/dashboard/rooms" class="nav-link">Rooms</li></a>
                 </li>
 
                 <li class="nav-item">
