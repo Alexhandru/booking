@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-
+use App\Company;
+use DB;
 class CompanyController extends Controller
 {
     /**
@@ -23,7 +24,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.add');
     }
 
     /**
@@ -34,7 +35,26 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'Name' => 'required',
+            'Email' => 'required',
+            'Telephone' => 'required',
+            'Description' => 'required',
+            'URL' => 'required'
+        ]);
+        
+        $company = new Company;
+
+        //return $location;
+        $company->Name = $request->input('Name');
+        $company->Email = $request->input('Email');
+        $company->Description = $request->input('Description');
+        $company->Telephone = $request->input('Telephone');
+        $company->LogoPicURL = $request->input('URL');
+
+        $company->save();
+
+        return redirect('/dashboard/company')->with('success', 'Company Added');
     }
 
     /**
@@ -56,7 +76,8 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Company::find($id);
+        return view('company.edit')->with('company', $company);
     }
 
     /**
@@ -68,7 +89,26 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'Name' => 'required',
+            'Email' => 'required',
+            'Telephone' => 'required',
+            'Description' => 'required',
+            'URL' => 'required'
+        ]);
+
+        $company = Company::find($id);
+
+        //return $location;
+        $company->Name = $request->input('Name');
+        $company->Email = $request->input('Email');
+        $company->Description = $request->input('Description');
+        $company->Telephone = $request->input('Telephone');
+        $company->LogoPicURL = $request->input('URL');
+
+        $company->save();
+
+        return redirect('/dashboard/company')->with('success', 'Company Updated');
     }
 
     /**
@@ -81,4 +121,5 @@ class CompanyController extends Controller
     {
         //
     }
+
 }

@@ -66,7 +66,7 @@ class Controller extends BaseController
         
 $bad = DB::table('Room')
 
-->join('Userroombooking','Room.ID','=','Userroombooking.RoomFK')
+->join('Userroombooking2','Room.ID','=','Userroombooking2.RoomFK')
 
 
 ->whereRaw('"'.$date.'"  between `BookingStart` and `BookingEnd`')
@@ -97,9 +97,9 @@ foreach($rooms2 as $room){
         $a=1;
     }
     if($a==0){
-        $rt=DB::table('Userroombooking')
-        ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-        ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+        $rt=DB::table('Userroombooking2')
+        ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+        ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
         ->where('Room.ID',$room->ID)
         ->avg('Review.Rating');
     $rating->push($rt);
@@ -127,10 +127,10 @@ foreach($rooms2 as $room){
 
      $room=Room::where('ID',$id)->get();
      
-     $values=   DB::table('Userroombooking')
-                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
-                ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-                ->join('Users','Userroombooking.UserFK','=','Users.id')
+     $values=   DB::table('Userroombooking2')
+                ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
+                ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+                ->join('Users','Userroombooking2.UserFK','=','Users.id')
                 ->where('Room.ID',$id)
                 //->select('Room.RoomNr','Review.Description')
                 ->get();
@@ -142,14 +142,14 @@ foreach($rooms2 as $room){
     $roomNR = DB::table('Room')         
                 ->where('ID',$id)
                 ->value('RoomNR');
-    $rating=DB::table('Userroombooking')
-    ->join('Review','Userroombooking.reviewFK','=','Review.ID')
-    ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+    $rating=DB::table('Userroombooking2')
+    ->join('Review','Userroombooking2.reviewFK','=','Review.ID')
+    ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
     ->where('Room.ID',$id)
     ->avg('Review.Rating');
     //return $rating;
-    $dates=   DB::table('Userroombooking')
-                ->join('Room','Userroombooking.RoomFK','=','Room.ID')
+    $dates=   DB::table('Userroombooking2')
+                ->join('Room','Userroombooking2.RoomFK','=','Room.ID')
                 ->where('Room.ID',$id)
                 //->select('Room.RoomNr','Review.Description')
                 ->get();

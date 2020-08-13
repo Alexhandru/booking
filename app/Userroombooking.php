@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Userroombooking extends Model
 {
-    protected $table = 'userroombooking';
+    protected $table = 'userroombooking2';
     public $timestamps = false;
     protected $fillable = [
 		'BookingStart', 'BookingEnd','UserFK', 'RoomFK',

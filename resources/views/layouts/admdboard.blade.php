@@ -35,15 +35,23 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a href="/dashboard/location" class="nav-link">Location</li></a>
+                    <a href="/dashboard/location" class="nav-link">Locations</li></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Room</li></a>
+                    <a href="/dashboard/company" class="nav-link">Companies</li></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Company</li></a>
+                    <a href="#" class="nav-link">Rooms</li></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Users</li></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Discounts</li></a>
                 </li>
 
             </ul>

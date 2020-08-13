@@ -56,11 +56,19 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
 */
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
+
+    /////  LOCATION  /////
 Route::get('/dashboard/location', 'AdminPageController@ViewLocations');
 Route::get('/dashboard/location/{id}/edit', 'LocationController@edit');
 Route::post('/{id}/update-Location', 'LocationController@update');
 Route::get('dashboard/location/add', 'LocationController@create');
 Route::post('/add-Location', 'LocationController@store');
+    /////  COMPANY  /////
+Route::get('/dashboard/company', 'AdminPageController@ViewCompanies');
+Route::get('dashboard/company/add', 'CompanyController@create');
+Route::post('/add-Company', 'CompanyController@store');
+Route::get('/dashboard/company/{id}/edit', 'CompanyController@edit');
+Route::post('/{id}/update-Company', 'CompanyController@update');
 
 /////  USER PAGE ROUTES  /////
 
