@@ -24,8 +24,16 @@
                     <input name="City" class="form-control" type="text" placeholder="" value="{{$location->City}}">
                 </div>
                 <div class="form-group">
-                    <span class="form-label">Company ID</span>
-                    <input name="CompanyFK" class="form-control" type="text" placeholder="" value="{{$location->CompanyFK}}">
+                    <span class="form-label">Company</span>
+                    <select name="CompanyName" class="form-control" id="select">
+                        @foreach ($companies as $company)
+                            @if ($company->name == $locationCompanyName)
+                                <option value="{{$company->name}}" selected>{{$company->name}}</option>
+                            @else
+                                <option value="{{$company->name}}">{{$company->name}}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <span class="form-label">URL</span>
@@ -39,4 +47,14 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script>
+      $(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
+</script>
 @endsection

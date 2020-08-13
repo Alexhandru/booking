@@ -8,7 +8,8 @@ class Room extends Model
 {
     //
     protected $table = 'room';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'ID';
+    public $timestamps = false;
 
     public function location() {
         return $this->belongsTo('\App\Location' , 'LocationFK') ;
