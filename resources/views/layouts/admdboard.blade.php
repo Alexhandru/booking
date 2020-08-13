@@ -35,15 +35,15 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a href="/dashboard/location" class="nav-link">Locations</li></a>
+                    <a href="/dashboard/location" class="nav-link">Location</li></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/dashboard/company" class="nav-link">Companies</li></a>
+                    <a href="/dashboard/company" class="nav-link">Company</li></a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/dashboard/rooms" class="nav-link">Rooms</li></a>
+                    <a href="/dashboard/room" class="nav-link">Room</li></a>
                 </li>
 
                 <li class="nav-item">
@@ -60,12 +60,7 @@
   </nav>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            
-            <a href="/dashboard/location" class="list-group-item list-group-item-action">Location</li></a>
-            <a href="/dashboard/room" class="list-group-item list-group-item-action">Room</li></a>
-            <a href="/dashboard/company" class="list-group-item list-group-item-action">Company</li></a>
-
+        <div class="continutul">
             <div> 
                 @yield('admin-content')
             </div>

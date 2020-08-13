@@ -16,7 +16,7 @@ class AdminPageController extends Controller
     public function ViewUsers(){
         //$user = DB::table('users')->get();
         $users = DB::table('users')
-        ->paginate(20);
+        ->paginate(10);
         return view('admin.userview')->with('users', $users);
     }
 
