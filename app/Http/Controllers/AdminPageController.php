@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use DB;
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 class AdminPageController extends Controller
 {
     //
     public function ViewDashboard(){
-        return view('layouts.admdboard');
+        return view('admin.adminwelcome');
     }
     
     public function ViewUsers(){
-        return view('admin.userview');
+        //$user = DB::table('users')->get();
+        $users = DB::table('users')
+        ->paginate(20);
+        return view('admin.userview')->with('users', $users);
     }
 
     public function ViewCompanies(){

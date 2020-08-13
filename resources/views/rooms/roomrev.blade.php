@@ -1,10 +1,34 @@
 @extends('layouts.app')
 @section('content')
 <style>
-
+.checked {
+  color: orange;
+}
+.wrapper{
+  position:static;
+    height: 100%;
+    width: 100%;
+  
+}
+.backGG{
+  opacity:0.9;
+  height: 100%;
+        width: 100%;
+       
+       background :rgb(105, 189, 210, 0.7);
+        position: absolute;
+        background-image: url('{{ asset('assets/backG.jpg')}}');
+       
+        z-index: -1;
+        background-size: cover;
+  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
     .galerybox {
-        position: relative; /*(needed to position the left and right arrows)*/
+        position: relative; 
         background-color: lightblue;
+        background :rgb(105, 189, 210, 0.7);  
        // width: 600px;
         border: 3px solid darkgray;
         padding: 10px;
@@ -15,7 +39,7 @@
     }
 
 
-    /* this is a grid with columns (the nr of columns = the number of auto after "/"), to display thumbnails: */
+   
     .grid-with-columns {
         display: grid;
         grid: auto / auto auto auto auto auto auto;
@@ -30,7 +54,7 @@
     }
 
 
-/* Hide the images by default */
+
 .mySlide {
   display: none;
   
@@ -40,12 +64,12 @@
     height:400px; 
     width:400px;
 }
-/* Add a pointer when hovering over the thumbnail images */
+
 .cursor {
   cursor: pointer;
 }
 
-/* Next & previous buttons */
+
 .prev,
 .next {
   cursor: pointer;
@@ -56,28 +80,27 @@
   color: white;
   font-weight: bold;
   font-size: 20px;
-  /* user-select: none;
-  -webkit-user-select: none; */
+  
 }
 
-/* Position the "next button" to the right */
+
 .next {
   right: 0;
 }
 
 
-/* Position the "prev button" to the left */
+
 .prev {
   left: 0;
 }
 
-/* On hover, add a black background color with a little bit see-through */
+
 .prev:hover,
 .next:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-/* Add a transparency effect for thumbnail images */
+
 .thumbnail-image {
   opacity: 0.6;
   width:50px;
@@ -88,21 +111,35 @@
 .thumbnail-image:hover {
   opacity: 1;
 }
+.list-group-item-info{
+  background-color:rgb(105, 189, 210, 0.7);
+}
+.whiteTextOverride
+{
+ color: white !important;
+}
+.table-info{
+  background-color:rgb(105, 189, 210, 0.7);
+}
+.blackTextOverride
+{
+ color: black !important;
+}
 </style>
- 
+ <div class="backGG"></div>
 <div class="page-header" style="text-align: center;
- // background-color:	rgb(25, 121, 169);">
+ background-color:rgb(105, 189, 210, 0.7);">
      <h1>Reviews: </h1>
 </div>
 
 <div class="galerybox">
             <h4 >Image Gallery of Room: {{$roomNR}}</h4>
-            <?php $i=0; //$nrimages;//$images.length(); //ide beirod az $images count-jat
+            <?php $i=0; 
             ?>
             @foreach($images as $image)
                 <?php $i++; ?>
                 <div class="mySlide">
-                    <div> <?php echo $i;?> / <?php echo $nrimages;?></div>  <!--class="numbertext"-->
+                    <div> <?php echo $i;?> / <?php echo $nrimages;?></div>  
                     <img class="slideImage" src="{{ URL::asset($image->URL) }}" alt="">  
                 </div>
             @endforeach
@@ -123,32 +160,36 @@
             </div>
 
         </div>
-        <ul class="list-group">
         
-        <li class="list-group-item"><h5>Room Rating: {{$rating}} </h5></li>
-         
-        
-        
-        <h3>Room Number: {{$roomNR}}</h3>
-        <br>
-        <h3>Reviews: </h3>
-        <ul>
+      <ul class="list-group">
+      @if( $rating == NULL)
+      <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: Currently  no ratings available</h5></li>
+      @else
+        <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: {{$rating}} </h5></li>
+      @endif
+
+        <div id="reviews">
+        <h3 class='whiteTextOverride'>Reviews: </h3>
+
+    
         @foreach($values as $value)
-        <li class="list-group-item-info"> {{$value->name}} : {{$value->Description}}
+     
+        <li class="list-group-item-info"> <a class='blackTextOverride'>{{$value->name}} : {{$value->Description}}</a>
         <br>
        
-        <a>Rating: {{$value->Rating}} </a>
+        <a class='blackTextOverride'>Rating: {{$value->Rating}} </a>
         </li>
-             
+   
         @endforeach
         </ul>
-
-        <h1>reserved dates: </h1>
+        </div>
+        <div id="dates">
+        <h3 class="whiteTextOverride">reserved dates: </h3>
         <table class="table">
          <thead>
             <tr>
-         <th scope="col">From: </th>
-         <th scope="col">To: </th>
+         <th class='whiteTextOverride' scope="col">From: </th>
+         <th class ='whiteTextOverride'scope="col">To: </th>
          </thead>
          <tbody>
         @foreach($dates as $date)
@@ -157,12 +198,20 @@
           <td class="table-info"> End Date:  {{$date->BookingEnd}}</td>
           </tr>
         @endforeach
+
         </tbody>
         </table>
 
-        
-          
-    
+        </div>
+        @foreach($getmonths as $availableDisc)
+
+@if( $room->DiscountFK == $availableDisc->ID)
+    <h3>Price with discount:  {{$room->discounts['discountAmount']}}</h3> 
+@else
+    <h3> Room price: {{$room->Price}}  </h3> 
+@endif
+@endforeach 
+
 <script>
 var slideIndex = 1;
 showSlide(slideIndex);

@@ -1,14 +1,43 @@
 @extends('layouts.app')
 @section('content')
+<style>
+.backGG { height: 100%;
+        width: 100%;
+        opacity: 0.8;
+        background: black;
+        position: absolute;
+        background-image: url('{{ asset('assets/backG.jpg')}}');
+        background-size: cover;
+        
+        z-index: -1;
+      
+        background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
-<div class="page-header" style="text-align: center;
-  background-color:	rgb(25, 121, 169);">
+.list-group-item-info{
+  background-color:rgb(105, 189, 210, 0.7);
+  color: black !important;
+}
+.whiteTextOverride
+{
+ color: white !important;
+}
+
+h1 {
+        background-color:rgb(105, 189, 210, 0.7);  
+}
+</style>
+<div class="backGG"> </div>
+<div class="page-header" style="text-align: center;">
      <h1>Room successfully reserved! </h1>
 </div>
 <img src="{{ URL::asset($company->LogoPicURL) }}" alt="Card image" height="250" width="250">
 
-<h3>Thank you for reserving one of our rooms, {{$user->name}}. Hopefully we will meet soon.</h3>
-<h4>Information about your reservation: </h4>
+<h3 class='whiteTextOverride'>Thank you for reserving one of our rooms, {{$user->name}}. We have sent you a confirmation e-mail on {{$usermail}} . </h3>
+ <h3 class='whiteTextOverride'>Hopefully we will meet you soon.
+</h3>
+<h4 class='whiteTextOverride'>Information about your reservation: </h4>
 <ul class="list-group">
         
         <li class="list-group-item-info">Company name: {{$company->Name}}</li>
@@ -20,10 +49,10 @@
         <li class="list-group-item-info">Booking from: {{$date}}</li>
         <li class="list-group-item-info">Booking to: {{$date2}}</li>
 </ul>
-<h4>If you have any questions please contact us by: </h4>
+<h4 class='whiteTextOverride'>If you have any questions please contact us by: </h4>
 <ul>
-<li>Email:  {{$company->Email}} </li>
-<li>Telephone: {{$company->Telephone}}</li>
+<li style="background-color:rgb(105, 189, 210, 0.7);" >Email:  {{$company->Email}} </li>
+<li style="background-color:rgb(105, 189, 210, 0.7);" >Telephone: {{$company->Telephone}}</li>
 
 </ul>
 

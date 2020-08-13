@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('home');
+    return view('welcome');
 })->middleware('auth');
 
 
@@ -55,7 +55,8 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
     Note: vezi User 'bookings' route
 */
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
-Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
+
+    /////  LOCATION  /////
 Route::get('/dashboard/location', 'AdminPageController@ViewLocations');
 Route::get('/dashboard/location/{id}/edit', 'LocationController@edit');
 Route::post('/{id}/update-Location', 'LocationController@update');
@@ -82,9 +83,13 @@ Route::post('/add-Company', 'CompanyController@store');
 Route::get('/dashboard/company/{companyID}/edit', 'CompanyController@edit');
 Route::post('/{companyID}/update-Company', 'CompanyController@update');
 Route::post('/{companyID}/delete-Company', 'CompanyController@destroy');
+Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
 /////  USER PAGE ROUTES  /////
 
+Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');
 Route::get('bookings', 'UserController@showUserBookings')->name('bookings');
+Route::get('/bookings/{id}/review', 'UserController@showReviewEdit');
+Route::post('/bookings/{id}/review', 'UserController@writeReview');
 
 /////  AUTHENTICATION ROUTES  /////
 Auth::routes();

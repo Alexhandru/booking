@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Company;
-
 class CompanyController extends Controller
 {
     /**
@@ -121,4 +120,5 @@ class CompanyController extends Controller
         $company->delete();
         return redirect('/dashboard/company')->with('success', 'Company Deleted');
     }
+
 }
