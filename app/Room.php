@@ -22,7 +22,7 @@ class Room extends Model
     //}
     public function reviews(){
        
-    return $this->belongsToMany(Review::class,'Userroombooking','RoomFK','reviewFK');
+    return $this->belongsToMany(Review::class,'Userroombooking2','RoomFK','reviewFK');
     }
    
     public function discounts(){
