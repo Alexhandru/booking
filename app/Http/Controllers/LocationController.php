@@ -55,6 +55,7 @@ class LocationController extends Controller
             'Address' => 'required',
             'Category' => 'required',
             'City' => 'required',
+            'Description' => 'required',
             'CompanyName' => 'required',
             'URL' => 'required'
         ]);
@@ -68,6 +69,7 @@ class LocationController extends Controller
         $location->Category = $request->input('Category');
         $location->City = $request->input('City');
         $location->CompanyFK = $company->ID;
+        $location->Description = $request->input('Description');
         $location->URL = $request->input('URL');
 
         $location->save();
@@ -119,6 +121,7 @@ class LocationController extends Controller
             'Category' => 'required',
             'City' => 'required',
             'CompanyName' => 'required',
+            'Description' => 'required',
             'URL' => 'required'
         ]);
         
@@ -131,6 +134,7 @@ class LocationController extends Controller
         $location->Category = $request->input('Category');
         $location->City = $request->input('City');
         $location->CompanyFK = $company->ID;
+        $location->Description = $request->input('Description');
         $location->URL = $request->input('URL');
 
         $location->save();

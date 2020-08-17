@@ -1,6 +1,13 @@
 @extends('layouts.admdboard')
 
 @section('admin-content')
+<style>
+.URLFit {
+    column-width: 150px;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div>
@@ -15,6 +22,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">City</th>
                         <th scope="col">CompanyID</th>
+                        <th scope="col">Description</th>
                         <th scope="col">URL</th>
                     </tr>
                 </thead>
@@ -27,7 +35,13 @@
                             <td>{{$item->Category}}</td>
                             <td>{{$item->City}}</td>
                             <td>{{$item->CompanyFK}}</td>
-                            <td>{{$item->URL}}</td>
+                            <div class="description">
+                                <td style="max-width: 100px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;">{{$item->Description}}</td>
+                            </div>
+                            <td class="URLFit">{{$item->URL}}</td>
                             <td>
                                 <a href="/dashboard/location/{{$item->ID}}/edit" type="button" class="btn btn-outline-secondary">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
