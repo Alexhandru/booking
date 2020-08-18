@@ -1,6 +1,8 @@
 @extends('layouts.admdboard')
 
 @section('admin-content')
+<style>
+    </style>
 <div class="container">
     <div class="row justify-content-center">
         <div>
@@ -15,6 +17,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">City</th>
                         <th scope="col">CompanyID</th>
+                        <th scope="col">Description</th>
                         <th scope="col">URL</th>
                     </tr>
                 </thead>
@@ -27,6 +30,7 @@
                             <td>{{$item->Category}}</td>
                             <td>{{$item->City}}</td>
                             <td>{{$item->CompanyFK}}</td>
+                            <td>{{$item->Description}}</td>
                             <td>{{$item->URL}}</td>
                             <td>
                                 <a href="/dashboard/location/{{$item->ID}}/edit" type="button" class="btn btn-outline-secondary">

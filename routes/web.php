@@ -54,6 +54,9 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
         ->   return view('VIEW-NAME')->with('VAR-NAME', $LOCAL-VAR-NAME);
     Note: vezi User 'bookings' route
 */
+Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
+{
+
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
 
     /////  LOCATION  /////
@@ -84,6 +87,8 @@ Route::get('/dashboard/company/{companyID}/edit', 'CompanyController@edit');
 Route::post('/{companyID}/update-Company', 'CompanyController@update');
 Route::post('/{companyID}/delete-Company', 'CompanyController@destroy');
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
+
+});
 /////  USER PAGE ROUTES  /////
 
 Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');
