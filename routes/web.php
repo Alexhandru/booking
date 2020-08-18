@@ -54,7 +54,7 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
         ->   return view('VIEW-NAME')->with('VAR-NAME', $LOCAL-VAR-NAME);
     Note: vezi User 'bookings' route
 */
-Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
+Route::group(['middleware' => 'auth'], function()
 {
 
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
