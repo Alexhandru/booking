@@ -87,7 +87,7 @@ Route::get('/dashboard/company/{companyID}/edit', 'CompanyController@edit');
 Route::post('/{companyID}/update-Company', 'CompanyController@update');
 Route::post('/{companyID}/delete-Company', 'CompanyController@destroy');
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
-
+});
 
 /////  USER PAGE ROUTES  /////
 
