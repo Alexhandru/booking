@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App\Company;
-use DB;
 class CompanyController extends Controller
 {
     /**
@@ -24,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('company.add');
+        return view('companies.add');
     }
 
     /**
@@ -40,22 +39,20 @@ class CompanyController extends Controller
             'Email' => 'required',
             'Telephone' => 'required',
             'Description' => 'required',
-            'URL' => 'required'
+            'LogoPicURL' => 'required'
         ]);
-        
+
         $company = new Company;
 
-        //return $location;
         $company->Name = $request->input('Name');
         $company->Email = $request->input('Email');
-        $company->Description = $request->input('Description');
         $company->Telephone = $request->input('Telephone');
-        $company->LogoPicURL = $request->input('URL');
+        $company->Description = $request->input('Description');
+        $company->LogoPicURL = $request->input('LogoPicURL');
 
         $company->save();
 
-        return redirect('/dashboard/company')->with('success', 'Company Added');
-    }
+        return redirect('/dashboard/company')->with('success', 'Company Added');    }
 
     /**
      * Display the specified resource.
@@ -74,10 +71,11 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($companyID)
     {
-        $company = Company::find($id);
-        return view('company.edit')->with('company', $company);
+        $company = Company::find($companyID);
+
+        return view('companies.edit')->with('company', $company);
     }
 
     /**
@@ -87,24 +85,23 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $companyID)
     {
         $this->validate($request,[
             'Name' => 'required',
             'Email' => 'required',
             'Telephone' => 'required',
             'Description' => 'required',
-            'URL' => 'required'
+            'LogoPicURL' => 'required'
         ]);
 
-        $company = Company::find($id);
+        $company = Company::find($companyID);
 
-        //return $location;
         $company->Name = $request->input('Name');
         $company->Email = $request->input('Email');
-        $company->Description = $request->input('Description');
         $company->Telephone = $request->input('Telephone');
-        $company->LogoPicURL = $request->input('URL');
+        $company->Description = $request->input('Description');
+        $company->LogoPicURL = $request->input('LogoPicURL');
 
         $company->save();
 
@@ -117,9 +114,11 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($companyID)
     {
-        //
+        $company = Company::find($companyID);
+        $company->delete();
+        return redirect('/dashboard/company')->with('success', 'Company Deleted');
     }
 
 }

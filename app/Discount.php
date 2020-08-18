@@ -8,7 +8,8 @@ class Discount extends Model
 {
     //
     protected $table = 'discount';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'ID';
+    public $timestamps = false;
     public function rooms() {
         $this->hasMany('\App\Room');
      }

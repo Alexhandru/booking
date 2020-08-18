@@ -45,9 +45,10 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+
+        return view('rooms.add')->with('id', $id);
     }
 
     /**
@@ -56,9 +57,26 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'Beds' =>'required',
+            'Price' => 'required',
+            'RoomNr' => 'required',
+            'URL' => 'required'
+        ]);
+
+        $room = new Room;
+
+        $room->Beds = $request->input('Beds');
+        $room->Price = $request->input('Price');
+        $room->RoomNr = $request->input('RoomNr');
+        $room->Picture= $request->input('URL');
+        $room->LocationFK = $id;
+
+        $room->save();
+
+        return redirect('/dashboard/room/'.$id)->with('success', "Room Added");
     }
 
     /**
@@ -78,9 +96,11 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $roomID)
     {
-        //
+        $room = Room::find($roomID);
+        return view('rooms.edit')->with('room', $room)
+        ->with('locationID', $id);
     }
 
     /**
@@ -90,9 +110,24 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $locationID, $roomID)
     {
-        //
+        $this->validate($request, [
+            'Beds' =>'required',
+            'Price' => 'required',
+            'RoomNr' => 'required',
+            'URL' => 'required'
+        ]);
+        
+        $room = Room::find($roomID);
+        $room->Beds = $request->input('Beds');
+        $room->Price = $request->input('Price');
+        $room->RoomNr = $request->input('RoomNr');
+        $room->Picture= $request->input('URL');
+
+        $room->save();
+        
+        return redirect('/dashboard/room/'.$locationID)->with('success', 'Room Updated');
     }
 
     /**
@@ -101,8 +136,40 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($locationID, $roomID)
     {
-        //
+        $room = Room::find($roomID);
+        $room->delete();
+        return redirect('/dashboard/room/'.$locationID)->with('success', 'Room Deleted');
+    }
+    
+    public function deleteDiscount($locationID, $roomID)
+    {
+        $room = Room::find($roomID);
+        $room->DiscountFK = NULL;
+        $room->save();
+        return redirect('/dashboard/room/'.$locationID)->with('success', 'Discount Deleted');
+    }
+    public function createPhoto($roomID)
+    {
+        return view('rooms.galleryAdd')->with('roomID', $roomID);
+    }
+    public function storePhoto(Request $request, $roomID)
+    {
+        $this->validate($request, [
+            'URL' => 'required'
+        ]);
+
+        $image = new Image;
+        $image->RoomFK = $roomID;
+        $image->URL = $request->input('URL');
+        $image->save();
+        return redirect('/gallery/'.$roomID)->with('success', 'Photo Added');
+    }
+    public function deletePhoto($roomID, $photoID)
+    {
+        $image = Image::find($photoID);
+        $image->delete();
+        return redirect('/gallery/'.$roomID)->with('success', 'Photo Deleted');
     }
 }

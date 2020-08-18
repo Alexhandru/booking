@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Location;
 use App\Review;
 use App\Room;
+use App\Company;
 
 use DB;
 
@@ -35,7 +36,10 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('locations.add');
+        $companies = Company::select('name')->get();
+        //return $companies;
+
+        return view('locations.add')->with('companies', $companies);
     }
 
     /**
@@ -51,19 +55,21 @@ class LocationController extends Controller
             'Address' => 'required',
             'Category' => 'required',
             'City' => 'required',
-            'CompanyFK' => 'required',
+            'Description' => 'required',
+            'CompanyName' => 'required',
             'URL' => 'required'
         ]);
         
-
+        $company = Company::where('Name', '=', $request->input('CompanyName'))->get()->first();
         $location = new Location;
-
+        //return $company;
         //return $location;
         $location->Name = $request->input('Name');
         $location->Adress = $request->input('Address');
         $location->Category = $request->input('Category');
         $location->City = $request->input('City');
-        $location->CompanyFK = $request->input('CompanyFK');
+        $location->CompanyFK = $company->ID;
+        $location->Description = $request->input('Description');
         $location->URL = $request->input('URL');
 
         $location->save();
@@ -90,8 +96,13 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
+        $companies = Company::select('name')->get();
         $location = Location::find($id);
-        return view('locations.edit')->with('location', $location);
+        $locationCompanyName = DB::table('company')->where('ID', '=', $location->CompanyFK)
+        ->get()->first()->Name;
+        return view('locations.edit')->with('location', $location)
+        ->with('companies', $companies)
+        ->with('locationCompanyName', $locationCompanyName);
     }
 
     /**
@@ -109,11 +120,12 @@ class LocationController extends Controller
             'Address' => 'required',
             'Category' => 'required',
             'City' => 'required',
-            'CompanyFK' => 'required',
+            'CompanyName' => 'required',
+            'Description' => 'required',
             'URL' => 'required'
         ]);
         
-
+        $company = Company::where('Name', '=', $request->input('CompanyName'))->get()->first();
         $location = Location::find($id);
 
         //return $location;
@@ -121,7 +133,8 @@ class LocationController extends Controller
         $location->Adress = $request->input('Address');
         $location->Category = $request->input('Category');
         $location->City = $request->input('City');
-        $location->CompanyFK = $request->input('CompanyFK');
+        $location->CompanyFK = $company->ID;
+        $location->Description = $request->input('Description');
         $location->URL = $request->input('URL');
 
         $location->save();
@@ -135,9 +148,11 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($locationID)
     {
-        //
+        $location = Location::find($locationID);
+        $location->delete();
+        return redirect('/dashboard/location')->with('success', 'Location Deleted');
     }
 
     public function fetch(Request $request){

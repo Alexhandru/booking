@@ -123,7 +123,7 @@
                 </div>
             </div>
         </nav>
-        @include('inc.messages')
+       
         <!--<main class="py-4">-->
 
         <div class='wrapper2'>

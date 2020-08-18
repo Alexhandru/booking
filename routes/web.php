@@ -54,6 +54,9 @@ Route::post('/post-data', 'LocationController@fetch')->name('postData');
         ->   return view('VIEW-NAME')->with('VAR-NAME', $LOCAL-VAR-NAME);
     Note: vezi User 'bookings' route
 */
+Route::group(['middleware' => 'auth'], function()
+{
+
 Route::get('/dashboard/main', 'AdminPageController@ViewDashboard');
 
     /////  LOCATION  /////
@@ -62,16 +65,30 @@ Route::get('/dashboard/location/{id}/edit', 'LocationController@edit');
 Route::post('/{id}/update-Location', 'LocationController@update');
 Route::get('dashboard/location/add', 'LocationController@create');
 Route::post('/add-Location', 'LocationController@store');
-    /////  COMPANY  /////
+Route::post('/dashboard/location/{locationID}/delete', 'LocationController@destroy');
+Route::get('/dashboard/room', 'AdminPageController@ViewLocationsForRooms');
+Route::get('/dashboard/room/{id}', 'AdminPageController@ViewRoomsForLocation');
+Route::get('/dashboard/room/{id}/add', 'RoomController@create');
+Route::post('/{id}/add-Room', 'RoomController@store');
+Route::get('/dashboard/room/{id}/edit/{roomID}', 'RoomController@edit');
+Route::post('/{locationID}/{roomID}/update-Room', 'RoomController@update');
+Route::post('/{locationID}/{roomID}/delete-Room', 'RoomController@destroy');
+Route::get('/dashboard/room/{locationID}/discount/{roomID}', 'DiscountsController@create');
+Route::post('/{roomID}/{locationID}/set-Discount', 'DiscountsController@set');
+Route::post('/{locationID}/{roomID}/delete-Discount', 'RoomController@deleteDiscount');
+Route::get('/gallery/{roomID}', 'AdminPageController@ViewGalleryForRoom');
+Route::get('/gallery/{roomID}/add-Photo', 'RoomController@createPhoto');
+Route::post('/{roomID}/add-Photo', 'RoomController@storePhoto');
+Route::post('/{roomID}/{photoID}/delete-Photo', 'RoomController@deletePhoto');
 Route::get('/dashboard/company', 'AdminPageController@ViewCompanies');
-Route::get('dashboard/company/add', 'CompanyController@create');
+Route::get('/dashboard/company/add', 'CompanyController@create');
 Route::post('/add-Company', 'CompanyController@store');
-Route::get('/dashboard/company/{id}/edit', 'CompanyController@edit');
-Route::post('/{id}/update-Company', 'CompanyController@update');
-    /////  USERS  /////
+Route::get('/dashboard/company/{companyID}/edit', 'CompanyController@edit');
+Route::post('/{companyID}/update-Company', 'CompanyController@update');
+Route::post('/{companyID}/delete-Company', 'CompanyController@destroy');
 Route::get('/dashboard/users', 'AdminPageController@ViewUsers');
-    /////  ROOMS  /////
-Route::get('/dashboard/rooms', 'AdminPageController@ViewRooms');    
+});
+
 /////  USER PAGE ROUTES  /////
 
 Route::get('/bookings/{id}/delete', 'UserController@deleteBooking');

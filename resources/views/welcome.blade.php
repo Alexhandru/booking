@@ -19,6 +19,11 @@
     <style>
     html,
     body {
+        background: url('{{ asset('assets/backG.jpg')}}') no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         color:black;
         font-family: 'Quicksand', sans-serif;
         font-weight: 200;
@@ -103,7 +108,7 @@
     a:hover {
         color: #7C69EF;
     }
-
+    /*
     .backGG {
         height: 100%;
         width: 100%;
@@ -114,7 +119,8 @@
         z-index: -1;
         background-repeat: no-repeat;
     background-attachment: fixed;
-
+    */
+    
         
     }
 
@@ -189,17 +195,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <span class="form-label">Rooms</span>
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                    <span class="select-arrow"></span>
-                                </div>
-                            </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <span class="form-label">Persons</span>
