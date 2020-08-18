@@ -1,6 +1,16 @@
 @extends('layouts.app')
 @section('content')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <style>
+.event a {
+           // background-color: #5FBA7D !important;
+           background-color:  #ffaa80 !important;
+            color: #ffffff !important;
+           
+         
+        }
 .checked {
   color: orange;
 }
@@ -9,30 +19,31 @@
     height: 100%;
     width: 100%;
   
-}
+} 
+
 .backGG{
-  opacity:0.9;
-  height: 100%;
+  min-height: 100vh;
         width: 100%;
-       
-       background :rgb(105, 189, 210, 0.7);
+        opacity: 0.9;
+        background: black;
         position: absolute;
         background-image: url('{{ asset('assets/backG.jpg')}}');
-       
-        z-index: -1;
         background-size: cover;
-  
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+        z-index: -1;
+        background-repeat: no-repeat;
+    background-attachment: fixed;;
 }
     .galerybox {
+
         position: relative; 
-        background-color: lightblue;
-        background :rgb(105, 189, 210, 0.7);  
-       // width: 600px;
+        background-color: #d9d9d9  ;
+       
+       /* background :rgb(105, 189, 210);  */
+        width: 600px;
         border: 3px solid darkgray;
         padding: 10px;
         margin: 10px;
+      
         text-align: center;
         width:1000px;
          margin:0 auto;"
@@ -111,8 +122,8 @@
 .thumbnail-image:hover {
   opacity: 1;
 }
-.list-group-item-info{
-  background-color:rgb(105, 189, 210, 0.7);
+.list-group-item{
+  background-color: #d9d9d9  ;
 }
 .whiteTextOverride
 {
@@ -122,18 +133,45 @@
   background-color:rgb(105, 189, 210, 0.7);
 }
 .blackTextOverride
+
 {
+  font-style:italic;
+  font-weight: bold;
  color: black !important;
 }
+.description{
+  background-color: #d9d9d9  ;
+  border-style: solid;
+            border-color:black;
+            border-width: 3px;
+       /* background :rgb(105, 189, 210);  */
+        width: 1000px;
+        margin:auto;
+        text-align: center;
+}
+.rating{
+  padding-left:20px;
+  padding-top:10px;
+  //padding-bottom:10px;
+  float:left;
+}
+.text{
+  padding:50px;
+}
 </style>
- <div class="backGG"></div>
-<div class="page-header" style="text-align: center;
- background-color:rgb(105, 189, 210, 0.7);">
-     <h1>Reviews: </h1>
-</div>
+<html>
+<div class="backGG">
 
-<div class="galerybox">
-            <h4 >Image Gallery of Room: {{$roomNR}}</h4>
+  <div class="page-header" style="text-align: center;
+      margin:auto;
+        max-width:50vh;
+        color:black;">
+     <h5><br></br>  </h5>
+     
+  </div>
+
+    <div class="galerybox">
+            <h4 >Image Gallery of Room {{$roomNR}}</h4>
             <?php $i=0; 
             ?>
             @foreach($images as $image)
@@ -149,7 +187,7 @@
 
             <p id="caption">
 
-            <div class="grid-with-columns" >
+              <div class="grid-with-columns" >
                 <?php $i=0; ?>
                 @foreach($images as $image)
                   <?php $i++; ?>
@@ -157,64 +195,92 @@
                     <img class="thumbnail-image cursor" src="{{ URL::asset($image->URL) }}" alt="" onclick="currentSlide(<?php echo $i;?>)" >
                   </div>
                 @endforeach
-            </div>
+              </div>
 
-        </div>
-        
-      <ul class="list-group">
-      @if( $rating == NULL)
-      <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: Currently  no ratings available</h5></li>
+    </div>
+ 
+      
+      <!-- @if( $rating == NULL)
+      <h5 class='whiteTextOverride'>Room Rating: Currently  no ratings available</h5>
       @else
-        <li class="list-group-item-info"><h5 class='blackTextOverride'>Room Rating: {{$rating}} </h5></li>
+       <h5 class='whiteTextOverride'>Room Rating: {{ number_format($rating, 1)}} </h5>
+      @endif -->
+      <br></br>
+      <div class='description'>
+      @if( $rating == NULL)
+      <h4 class='rating' >Room Rating: Currently  no ratings available</h4>
+      @else
+       <h4 class='rating'>Room Rating: {{ number_format($rating, 1)}} </h4>
       @endif
+       <h6 class='text' >{{$locdesc}}</h6>
 
-        <div id="reviews">
-        <h3 class='whiteTextOverride'>Reviews: </h3>
 
-    
+
+
+      </div>
+      
+      <h3 class='whiteTextOverride'>Reviews: </h3>
+      
+  <div class='row'>
+    <div class="col-sm-8">
+      <div class='reviews'>
+        
+
+        <ul class="list-group">
         @foreach($values as $value)
      
-        <li class="list-group-item-info"> <a class='blackTextOverride'>{{$value->name}} : {{$value->Description}}</a>
+        <li class="list-group-item"><a class='blackTextOverride'>{{$value->name}} </a>: {{$value->Description}}
         <br>
        
-        <a class='blackTextOverride'>Rating: {{$value->Rating}} </a>
-        </li>
+        <a>Rating: {{$value->Rating}} </a>
+       </li>
    
         @endforeach
         </ul>
-        </div>
-        <div id="dates">
-        <h3 class="whiteTextOverride">reserved dates: </h3>
-        <table class="table">
-         <thead>
+      </div>
+    </div>
+    <!-- <?php $eventDates=array();
+    $j=0;
+    ?>
+    @foreach($ocdates as $dateee)
+    <?php $eventDates[$j]=$dateee;
+    
+    ?>
+          <h1>{{$dateee}}</h1>
+    @endforeach -->
+        
+          <!-- <h3 class="whiteTextOverride">reserved dates: </h3>
+          <table class="table">
+          <thead>
             <tr>
-         <th class='whiteTextOverride' scope="col">From: </th>
-         <th class ='whiteTextOverride'scope="col">To: </th>
-         </thead>
-         <tbody>
-        @foreach($dates as $date)
-            <tr>
-             <td class="table-info">Start Date: {{$date->BookingStart}}</td>
-          <td class="table-info"> End Date:  {{$date->BookingEnd}}</td>
-          </tr>
-        @endforeach
+          <th class='whiteTextOverride' scope="col">From: </th>
+          <th class ='whiteTextOverride'scope="col">To: </th>
+          </thead>
+          <tbody>
+          @foreach($dates as $date)
+              <tr>
+              <td class="table-info">Start Date: {{$date->BookingStart}}</td>
+            <td class="table-info"> End Date:  {{$date->BookingEnd}}</td>
+            </tr>
+          @endforeach
 
-        </tbody>
-        </table>
+          </tbody>
+          </table> -->
 
+       
+        <div class="col-sm-4">
+          <div id="datepicker"></div>
         </div>
-        @foreach($getmonths as $availableDisc)
+  </div>
+  
+</div>
 
-@if( $room->DiscountFK == $availableDisc->ID)
-    <h3>Price with discount:  {{$room->discounts['discountAmount']}}</h3> 
-@else
-    <h3> Room price: {{$room->Price}}  </h3> 
-@endif
-@endforeach 
-
+</html>
 <script>
 var slideIndex = 1;
+
 showSlide(slideIndex);
+
 
 function moveSlide(n) {
   showSlide(slideIndex += n);
@@ -241,6 +307,38 @@ function showSlide(n) {
   thumb[slideIndex-1].className += " active";
   captionText.innerHTML = thumb[slideIndex-1].alt;
 }
+
+
+
+var events = @json($ocdates);
+calendarrr(events);
+
+ function calendarrr(events) {
+  var eventDates = {};
+  events.forEach(function(item,index){
+     var s=item.substring(0,item.length-1); //trim last Z from date
+     var d=new Date(s);
+     eventDates[d]=d;
+   });
+
+    // datepicker
+    
+       $('#datepicker').datepicker({
+        
+        beforeShowDay: function( date ) {
+            var highlight = eventDates[date];
+            if( highlight ) {
+                 return [true, "event", "occupied"];
+            } else {
+                 return [true, '', ''];
+            }
+        },minDate: new Date()
+    });
+};
+   
+
+
+
 </script>  
 
 

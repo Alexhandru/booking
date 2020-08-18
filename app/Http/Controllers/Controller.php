@@ -18,7 +18,9 @@ use App\Userroombooking;
 use App\Userroombooking2;
 use App\Company;
 use App\User;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
+use config;
 class Controller extends BaseController
 {
     use AuthorizesRequests;
@@ -57,6 +59,8 @@ class Controller extends BaseController
         $mailmessage="This is a confirmation email. You have successfully reserved our room ".$username. " ! Your reservation is valid from: ".$date." to: ".$date2." .";//.$data['Password'];
         $headers = "aistenes@yahoo.com";
         mail($destination, "room reserved", $mailmessage,$headers);
+        //return Config::get('reserved.res');
+       // Config::set('reserved.res','1');   
         
         return view('rooms.reservedroom')->with('user',$user)
         ->with('location',$location)
@@ -75,7 +79,7 @@ class Controller extends BaseController
         $carbon2 = new Carbon($date2);
         $carbon2->format('Y-m-d');
       
-        
+           
 $bad = DB::table('Room')
 
 ->join('Userroombooking2','Room.ID','=','Userroombooking2.RoomFK')
@@ -170,17 +174,43 @@ foreach($rooms2 as $room){
                 ->where('Room.ID',$id)
                 ->count();
                 $dt = Carbon::now();
-                $getmonths= DB::table('Discount')
+                /*$getmonths= DB::table('Discount')
                     ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
                     ->where('ID',)
-                    ->get();
+                    ->get();*/
   
+    $bookings=Userroombooking2::where('RoomFK',$id)->get();
+    $ocdates=collect();
+    //$ocdates=array();
+    $i=0;
+    foreach($bookings as $booking){
+        
+        $start=$booking->BookingStart;
+        $end=$booking->BookingEnd;
+        $ranges = CarbonPeriod::create($start,$end);  
+        foreach ($ranges as $date) {
+           
+            $ocdates->push($date);
+            //$ocdates[$i]=$date;
+            //$i++;
+           
+        }     
+    }
+    $locationID=Room::where('ID',$id)->value('LocationFK');
+   
+    $locdesc=Location::where('ID',$locationID)->value('Description');
+    //return $ocdates;
+   
         return view('rooms.roomrev')->with('values',$values)
                                    ->with('images',$images)
                                    ->with('roomNR',$roomNR)
                                    ->with('rating',$rating)
                                    ->with('dates',$dates)
-                                   ->with('getmonths',$getmonths)
+                                 //  ->with('ocdates',$ocdates)
+                                 ->with('ocdates',$ocdates)
+                                  // ->with('getmonths',$getmonths)
+                                  //->with('eventDates',$eventDates)
+                                  ->with('locdesc',$locdesc)
                                    ->with('nrimages',$nrimages);
 
                                     //->with('photos',$photos);

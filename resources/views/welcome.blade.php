@@ -137,7 +137,7 @@
 </head>
 
 <body>
-    <div class="backGG"></div>
+<div class="backGG"></div>
     <div class="container">
         <div class="wrap flex-center">
             
@@ -230,9 +230,9 @@
                     </div>    
                 </div>
                 
-            </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
