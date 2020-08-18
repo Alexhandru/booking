@@ -1,6 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.admdboard')
 
-@section('content')
+@section('admin-content')
+<style>
+table {
+    table-layout: auto;
+    width:100%;
+}
+.piccol {
+    column-width: 150px;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
         <div>
@@ -20,6 +32,7 @@
             </div>
             <br><br>
             <table class="table">
+                
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -47,11 +60,12 @@
                                           </svg>
                                     </a>
                                 @else
+                        
                                         S:{{$item->dateStart}} - E:{{$item->dateEnd}} ; Discount: {{$item->discountAmount}}
                                         <form action="/{{$id}}/{{$item->ID}}/delete-Discount" method="POST">
                                             {{ csrf_field() }}
-                                            <button class="btn btn-outline-danger">
-                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <button style="display: inline" class="btn btn-outline-danger">
+                                                <svg style="display: inline" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                                     <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
                                                     <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
@@ -69,7 +83,11 @@
                                       </svg>
                                 </a>
                             </td>
-                            <td>{{$item->Picture}}</td>
+                            <td>
+                                <div class="piccol">
+                                    {{$item->Picture}}
+                                </div>
+                            </td>
                             <td>
                                 <a href="/dashboard/room/{{$id}}/edit/{{$item->ID}}" type="button" class="btn btn-outline-secondary">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

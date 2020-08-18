@@ -36,6 +36,10 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <span class="form-label">Description</span>
+                    <input name="Description" class="form-control" type="text" placeholder="" value="{{$location->Description}}">
+                </div>
+                <div class="form-group">
                     <span class="form-label">URL</span>
                     <input name="URL" class="form-control" type="text" placeholder="" value="{{$location->URL}}">
                 </div>
