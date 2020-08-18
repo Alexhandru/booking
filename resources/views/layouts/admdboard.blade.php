@@ -26,7 +26,7 @@
         background: white;
         margin-top:5%;
         display: inline-block;
-        padding: 50px;
+        padding: 30px;
         height: 100%;
         width: 120%;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -71,12 +71,13 @@
   </nav>
   @include('inc.messages')
 <div class="container">
-
+    <div class="row justify-content-center">    
         <div class="continutul">
             <div> 
                 @yield('admin-content')
             </div>
         </div>
+    </div>
 
 </div>
 @endsection
