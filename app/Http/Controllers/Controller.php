@@ -21,6 +21,7 @@ use App\User;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use config;
+
 class Controller extends BaseController
 {
     use AuthorizesRequests;
@@ -30,17 +31,28 @@ class Controller extends BaseController
 
     public function insert($id,$date,$date2,$iduser){
        // $booking=new UserroomBooking;
+       $username=User::where('ID',$iduser)->value('name');
+        $boookings=Userroombooking2::where('UserFK',$iduser)->where('RoomFK',$id)->where('BookingStart',$date)->where('BookingEnd',$date2)->first();
+       if($boookings != NULL)
+       {
+        return view('rooms.alreadyreserved')->with('username',$username)->with('roomid',$id);
+        
+        
+       }else{
+
+       
        $booking=new UserroomBooking2;
         $booking->BookingStart=$date;
         $booking->BookingEnd=$date2;
         $booking->UserFK=$iduser;
         $booking->RoomFK=$id;
+
          $booking->save();
       
         $room=Room::where('ID',$id)->first();
         $user=User::where('ID',$iduser)->first();
         $userMail=User::where('ID',$iduser)->value('email');
-        $username=User::where('ID',$iduser)->value('name');
+        
         
         $locationID=Room::where('ID',$id)
       
@@ -49,6 +61,8 @@ class Controller extends BaseController
         $location=Location::where('ID',$locationID)->first();
        // return $location;
        $companyID=Location::where('ID',$locationID)->value('CompanyFK');
+       $adress=Location::where('ID',$locationID)->value('Adress');
+       $city=Location::where('ID',$locationID)->value('City');
       // return $companyID;
     
         //$CompanyID=Location::where('CompanyFK',$locationID)->first()->value('CompanyFK');
@@ -56,12 +70,15 @@ class Controller extends BaseController
         $company=Company::where('ID',$companyID)->first();
          
         $destination=$userMail;
-        $mailmessage="This is a confirmation email. You have successfully reserved our room ".$username. " ! Your reservation is valid from: ".$date." to: ".$date2." .";//.$data['Password'];
+        $mailmessage="This is a confirmation email. You have successfully reserved our room ".$username. " ! Your reservation is valid from: ".$date." to: ".$date2." . We are waiting for you at the address: ".$adress.", ".$city ;//.$data['Password'];
         $headers = "aistenes@yahoo.com";
         mail($destination, "room reserved", $mailmessage,$headers);
         //return Config::get('reserved.res');
        // Config::set('reserved.res','1');   
-        
+       //session(['roomid' => $id]);
+     // Session::set('roomid',$id);
+      // $a = session('roomid');
+     // return $a;
         return view('rooms.reservedroom')->with('user',$user)
         ->with('location',$location)
         ->with('company',$company)
@@ -69,6 +86,7 @@ class Controller extends BaseController
         ->with('date2',$date2)
         ->with('room',$room)
         ->with('usermail',$userMail);
+       }
     }
     public function showbyloc($loc,$beds,$date,$date2)
     {   
@@ -127,12 +145,15 @@ foreach($rooms2 as $room){
        $getmonths= DB::table('Discount')
            ->whereRaw('"'.$dt.'" between `dateStart` and `dateEnd`')
            ->get();
-        
+        $message="";
+        //$userid=Auth::user()->id;
         return view('rooms.index')->with('rooms',$rooms)
                                 ->with('date',$date)
                                 ->with('date2',$date2)
                                 ->with('getmonths',$getmonths)
                                 ->with('rating',$rating)
+                                ->with('message',$message)
+                               // ->with('userid',$userid)
                                 ->with('index',$index);
         
 

@@ -55,9 +55,10 @@ li {
 }
 </style>
 <div class="backGG"> 
-<div class="page-header" style="text-align: center;">
+<div class="page-header" style="text-align: center; color:white;">
      <h1>Room successfully reserved! </h1>
 </div>
+
 <div class='row'>
 <img src="{{ URL::asset($company->LogoPicURL) }}" alt="Card image" height="250" width="250" class='img'>
 

@@ -218,10 +218,17 @@
 
 
       </div>
-      
+     <br></br> 
+     <div class='row'>
+     <div class="col-sm-8">
       <h3 class='whiteTextOverride'>Reviews: </h3>
-      
+      </div>
+      <div class="col-sm-4">
+      <h3 class='whiteTextOverride'>Reserved dates: </h3>
+      </div>
+      </div>
   <div class='row'>
+  
     <div class="col-sm-8">
       <div class='reviews'>
         

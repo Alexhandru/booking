@@ -8,7 +8,8 @@
     height: 100%;
     width: 100%;
   
-} 
+}
+
 
 
 </style>
@@ -24,7 +25,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;">
         <div class="page-header" style="text-align: center;
-            margin:auto;  max-width:50vh;">
+            margin:auto;  max-width:50vh;color:white;">
             <h1> Available rooms: </h1>
         </div>
 
@@ -51,31 +52,43 @@
                 <h5> City: {{$room->location['City']}} </h5>
                 <h5> Room rating:  {{ number_format($rating[$index], 1)}} </h5>
           
-           
+          
+          
+           <?php $disc=0;?>
                 @foreach($getmonths as $availableDisc)
                     @if( $room->DiscountFK == $availableDisc->ID)
-                        <h5>Price with discount:  {{$room->discounts['discountAmount']}}</h5> 
-
-                        <h6><br>( Available until: {{$room->discounts['dateEnd']}})</br> </h6>
-                    @else
-                        <h5> Room price: {{$room->Price}}  </h5> 
-                        <h6> <br></br></h6>
+                        <?php $disc= $room->discounts['discountAmount'];$until= $room->discounts['dateEnd'];?>
+                 
                     @endif
                 @endforeach
+            @if ($disc == 0)
+             <h5> Room price: {{$room->Price}} $</h5> 
+                        <h6> <br></br></h6> 
+            @else
+            <h5>Price with discount:  {{$disc }} $</h5> 
 
-             
-                <!-- $nr={{$room->ID}};
-                        -->
-                        
-                
+                        <h6><br>( Available until: {{$until}})</br> </h6>
+              
+             @endif  
+           
                 <a href="/rooms/review/{{$room->ID}}" class="btn btn-secondary"> More about </a>
+               
+               
+                 
+              
+              
             @if  (!Auth::guest())
-
-            <a href="{{action('Controller@insert',['id'=>$room->ID,'date'=>$date, 'date2'=>$date2, 'iduser'=>Auth::user()->id])}}"  name='reservb' value='reservb' class="btn btn-info" style="float: right;">Reserve</a>
-                
+            
+             
+        
+         
+           
+           
+                <a href="{{action('Controller@insert',['id'=>$room->ID,'date'=>$date, 'date2'=>$date2, 'iduser'=>Auth::user()->id])}}" id='{{$room->ID}}' value='{{$room->ID}}' class="btn btn-info" onClick="myFunction(this.id,this.value);"  style="float: right;">Reserve</a>
+          
             @endif
         </div>  
-    
+       
     </div>
     <php {{ ++$index }} ?>
     @endforeach 
@@ -87,7 +100,37 @@
     <p>No rooms found </p>
 
     @endif
+   
 </div> 
   <!-- background -->
+<script>
+//  var msg = '{{Session::get('alert')}}';
+//     var exist = '{{Session::has('alert')}}';
+//     if(exist){
+//       alert(msg);
+//     }
+// function myFunction(id,value) {
+//     document.getElementById(id).style.display = "none";
+//     localStorage.setItem('value', 'false'); //store state in localStorage
+    
+// }
 
+// $(document).ready(function(){
+    
+//     var show = localStorage.getItem('value');
+    
+//     if(show === 'false'){
+      
+//         document.getElementById(id).style.display = "none";
+       
+//     }
+// });
+ 
+    
+        // function myFunction(id){
+            
+        //     document.getElementById(id).style.display = 'none'     
+        // }
+    
+</script>
 @endsection
